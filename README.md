@@ -6,3 +6,6 @@ This is the CS467 Capstone project for Oregon State University's Bachelore of Sc
 Authors:
 Chris Nelson
 Jeffrey Blake
+
+
+Unity Version: 2019.4.0f1
