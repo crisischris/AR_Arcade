@@ -12,6 +12,12 @@ public class SpawnAsteroid : MonoBehaviour
     //probably don't need these public
     public int counter;
     public GameObject user;
+
+    //this is to keep track of our asteroids
+    //public List<GameObject> asteroidList = new List<GameObject>();
+    public GameObject asteroid;
+
+
     public float speed = 1f;
 
 
@@ -29,6 +35,8 @@ public class SpawnAsteroid : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //DestroyOldAsteroids();
+
         userX = user.transform.position.x;
         userY = user.transform.position.y;
         userZ = user.transform.position.z;
@@ -36,6 +44,8 @@ public class SpawnAsteroid : MonoBehaviour
         //time = (int)Time.time;
 
         //makeshift counter
+        //TODO
+        //better counter logic?
         if (counter >= 180)
         {
             counter = 0;
@@ -44,8 +54,8 @@ public class SpawnAsteroid : MonoBehaviour
 
         //NO
         //StartCoroutine(wait(2));
-
         counter++;
+
     }
 
     //TODO
@@ -55,9 +65,28 @@ public class SpawnAsteroid : MonoBehaviour
     //TODO sling the asteroid
     private void spawnAsteroid()
     {
-        GameObject a = new GameObject();
-        a.AddComponent<asteroid>();
+        asteroid = Instantiate(asteroid);
+        asteroid.name = "asteroid";
+        //asteroidList.Add(asteroid);
     }
+
+
+    //OBSOLETE
+    /*
+    private void DestroyOldAsteroids()
+    {
+        for(int i = 0; i < asteroidList.Count; i++)
+        {
+            var script = asteroidList[i].GetComponent<asteroid>();
+
+            if (script.getTimeAlive() >= script.getLifeSpan())
+            {
+                script.selfDestruct();
+                asteroidList.Remove(asteroidList[i]);
+            }
+        }
+    }
+    */
 
     //IEnumerator wait(int waitTime)
     //{
