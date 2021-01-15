@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnAsteroid : MonoBehaviour
+public class logic : MonoBehaviour
 {
     //THIS IS BAD STYLE, i'm packing all into this script when I should use more OOP
 
@@ -46,7 +46,7 @@ public class SpawnAsteroid : MonoBehaviour
         //makeshift counter
         //TODO
         //better counter logic?
-        if (counter >= 180)
+        if (counter >= 120)
         {
             counter = 0;
             spawnAsteroid();

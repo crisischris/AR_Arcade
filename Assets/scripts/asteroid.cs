@@ -5,21 +5,22 @@ using UnityEngine;
 public class asteroid : MonoBehaviour
 {
     //asteroid public vars
-    public int lifeStage;
     public float inertia;
     public Vector3 pos;
     private int timeAlive;
-    private int lifeSpan;
+    public int lifeSpan;
 
     //asteroid private vars
     private float timeStart;
     private GameObject user;
+    public ParticleSystem explosion;
     private float userX;
     private float userY;
     private float userZ;
 
 
-
+    //TODO
+    //collision detection
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +28,7 @@ public class asteroid : MonoBehaviour
         timeStart = Time.time;
 
         //set life
-        lifeSpan = Random.Range(5, 12);
+        lifeSpan = Random.Range(10, 16);
 
         //Establish the user posistion
         user = GameObject.Find("AR Camera");
@@ -48,7 +49,6 @@ public class asteroid : MonoBehaviour
 
         //flip for X pos
         randomFlip = Random.Range(0, 2);
-        Debug.Log(randomFlip);
 
         if (randomFlip == 1)
             randomX = Random.Range(userX - 10, userX - 20);
@@ -62,7 +62,6 @@ public class asteroid : MonoBehaviour
 
         //flip for Z pos
         randomFlip = Random.Range(0, 2);
-        Debug.Log(randomFlip);
 
         if (randomFlip == 1)
             randomZ = Random.Range(userZ - 10, userZ - 20);
@@ -107,7 +106,7 @@ public class asteroid : MonoBehaviour
         //move forward over time
         transform.position += transform.forward * inertia;
         if (timeAlive >= lifeSpan)
-            Destroy(gameObject);
+            selfDestruct();
     }
 
     //getter
@@ -125,7 +124,20 @@ public class asteroid : MonoBehaviour
     //Call this to clean up
     public void selfDestruct()
     {
+        explosion = Instantiate(explosion);
+        explosion.transform.position = this.transform.position;
+        explosion.transform.rotation = this.transform.rotation;
         Destroy(gameObject);
+    }
+
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("COLLIDED");
+        if(collision.gameObject.CompareTag("projectile"))
+            selfDestruct();
+
     }
 
     //OLD
