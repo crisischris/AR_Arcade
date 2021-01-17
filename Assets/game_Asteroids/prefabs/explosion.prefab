@@ -116,7 +116,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2
+      scalar: 3
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -661,7 +661,7 @@ ParticleSystem:
     serializedVersion: 6
     enabled: 1
     type: 4
-    angle: 30
+    angle: 20
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
@@ -747,7 +747,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.1
+      value: 0.2
       mode: 0
       spread: 0
       speed:
@@ -4767,3 +4767,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b6ea1f1bfa884c9e89af9acecc041db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inertia: 0

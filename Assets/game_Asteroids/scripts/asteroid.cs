@@ -121,12 +121,15 @@ public class asteroid : MonoBehaviour
         return lifeSpan;
     }
 
-    //Call this to clean up
+    //Explosion is spawned and inherits the asteroid inertia, position and rotation.
+    //Asteroid is then destroyed
     public void selfDestruct()
     {
         explosion = Instantiate(explosion);
         explosion.transform.position = this.transform.position;
         explosion.transform.rotation = this.transform.rotation;
+        //inherit half the inertia
+        explosion.GetComponent<Explosion>().inertia = this.inertia/4;
         Destroy(gameObject);
     }
 

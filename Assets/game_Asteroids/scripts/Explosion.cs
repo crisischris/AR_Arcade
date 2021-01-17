@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class Explosion : MonoBehaviour
 {
+    //inherit from the asteroid
+    public float inertia;
 
     private float timeStart;
     private int timeAlive;
     private int lifeSpan = 2;
+
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +24,9 @@ public class Explosion : MonoBehaviour
     {
         //Update the time alive
         timeAlive = (int)(Time.time - timeStart);
+
+        //move forward over time
+        transform.position += transform.forward * inertia;
 
         if (timeAlive >= lifeSpan)
             selfDestruct();
