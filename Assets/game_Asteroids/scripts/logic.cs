@@ -11,7 +11,7 @@ public class logic : MonoBehaviour
 
     //probably don't need these public
     public int counter;
-    public GameObject user;
+    private GameObject user;
 
     //this is to keep track of our asteroids
     //public List<GameObject> asteroidList = new List<GameObject>();
@@ -65,8 +65,8 @@ public class logic : MonoBehaviour
     //TODO sling the asteroid
     private void spawnAsteroid()
     {
-        asteroid = Instantiate(asteroid);
-        asteroid.name = "asteroid";
+        var curAsteroid = Instantiate(asteroid);
+        curAsteroid.name = "asteroid";
         //asteroidList.Add(asteroid);
     }
 

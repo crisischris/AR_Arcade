@@ -10,10 +10,10 @@ public class input : MonoBehaviour
     private GameObject user;
 
     public Text debugText;
-    public string debugString = "null";
+    public string debugString;
 
     public Text debugStartEndPosText;
-    public string debugStartEndString = "null";
+    public string debugStartEndString;
 
     public Text debugTouchCount;
     public int debugTouchCountString = 0;
@@ -23,26 +23,51 @@ public class input : MonoBehaviour
 
     public float interia = 0;
 
+    public bool debug = false;
+
 
 
     // Start is called before the first frame update
     void Start()
     {
-        user = GameObject.Find("AR Camera");
+        debugText.gameObject.SetActive(true);
+        debugStartEndPosText.gameObject.SetActive(true);
+        debugTouchCount.gameObject.SetActive(true);
 
+        user = GameObject.Find("AR Camera");
     }
 
     // Update is called once per frame
     void Update()
     {
+        
+        //DEBUG update the touch count
         debugTouchCountString = Input.touchCount;
-        debugString = "inertia = " + interia.ToString();
-        debugText.text = debugString;
-        debugStartEndPosText.text = debugStartEndString;
-        debugTouchCount.text = debugTouchCountString.ToString();
 
-        //move with intertia
-        user.transform.position += user.transform.forward * interia;
+
+        //turn the debug text on
+        if (debug)
+        {
+            //set the string
+            debugString = "inertia = " + interia.ToString();
+            debugTouchCount.text = debugTouchCountString.ToString();
+
+            //display the string
+            debugText.text = debugString;
+            debugStartEndPosText.text = debugStartEndString;
+        }
+        ///debug text is off
+        else
+        {
+            debugText.text = null;
+            debugStartEndPosText.text = null;
+            debugTouchCount.text = null;
+        }
+
+
+
+    //move with intertia
+    user.transform.position += user.transform.forward * interia;
 
         //TODO
         //remove the space key after debug

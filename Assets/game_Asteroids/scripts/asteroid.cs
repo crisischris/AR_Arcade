@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class asteroid : MonoBehaviour
+public class Asteroid : MonoBehaviour
 {
+    public static int count = 0;
     //asteroid public vars
     public float inertia;
     public Vector3 pos;
@@ -13,10 +14,16 @@ public class asteroid : MonoBehaviour
     //asteroid private vars
     private float timeStart;
     private GameObject user;
+    private GameObject ui_manager;
     public ParticleSystem explosion;
     private float userX;
     private float userY;
     private float userZ;
+    private int score = 100;
+    private bool dying = false;
+
+   
+
 
 
     //TODO
@@ -25,7 +32,13 @@ public class asteroid : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        count++;
+        //hook into ui_manager
+        ui_manager = GameObject.Find("Manager_UI");
+
+        //get the highscore variable
         timeStart = Time.time;
+
 
         //set life
         lifeSpan = Random.Range(10, 16);
@@ -125,23 +138,80 @@ public class asteroid : MonoBehaviour
     //Asteroid is then destroyed
     public void selfDestruct()
     {
-        explosion = Instantiate(explosion);
-        explosion.transform.position = this.transform.position;
-        explosion.transform.rotation = this.transform.rotation;
-        //inherit half the inertia
-        explosion.GetComponent<Explosion>().inertia = this.inertia/4;
+        //Implimenting the dying variable to stop race condition
+        //where the asteroid would call mulitple selfDestructs in a
+        //single frame
+        //create the explosion and inherit values of the asteroid
+        var curExplosion = Instantiate(explosion);
+        curExplosion.transform.position = transform.position;
+        curExplosion.transform.rotation = transform.rotation;
+        curExplosion.GetComponent<Explosion>().inertia = inertia / 4;
+
+        //decrement count
+        count--;
+        //clean up the asteroid
         Destroy(gameObject);
     }
 
 
-
+    //This function detects a collision of a tag
+    //"projectile".  Calls selfDestruct() on collision
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("COLLIDED");
+       
+        //The laser hit the asteroid!
         if(collision.gameObject.CompareTag("projectile"))
-            selfDestruct();
+        {
+            //hook into the manager_ui
+            ui_manager.GetComponent<ui_manager>().highscore += score;
+
+            //TODO
+            //rectify this double explosion
+            if(!dying)
+            {
+                dying = true;
+                selfDestruct();
+
+            }
+        }
+
+        
 
     }
+
+    private void OnTriggerEnter(Collider collision)
+    {
+        user.GetComponent<User>().hit_time = Time.time;
+
+        //detect if hit was on plater
+        if (collision.gameObject.CompareTag("player"))
+        {
+            //cooldown is over baby
+            if (user.GetComponent<User>().hit_time - user.GetComponent<User>().last_hit_time > 1)
+            {
+                //assign latest hit time relative to the game start
+                user.GetComponent<User>().last_hit_time = user.GetComponent<User>().hit_time;
+
+                //decrement life 
+                user.GetComponent<User>().lives--;
+
+            }
+        }
+    }
+
+    //private IEnumerator hitCountDown()
+    //{
+    //    //super hacky way of buffering a hit
+    //    //by iterating through a loop and then
+    //    //making bool false
+    //    for (int i = 0; i < 10000; i++)
+    //    {
+    //        var x = 1;
+    //    }
+
+    //    user.GetComponent<User>().isTakingHit = false;
+    //    yield return new WaitForSeconds(1);
+    //}
 
     //OLD
 

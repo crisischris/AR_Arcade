@@ -5,16 +5,25 @@ using UnityEngine;
 public class User : MonoBehaviour
 {
     public GameObject laser;
+    public int lives = 3;
+    //public bool isTakingHit = false;
+
+
+    public float hit_time;
+    public float last_hit_time = Mathf.Infinity;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        //establish time for hit cooldowns
+        last_hit_time = Time.time;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (lives <= 0)
+            Debug.Log("WE'RE DEAD BABY");
         
     }
 

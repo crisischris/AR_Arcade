@@ -12,9 +12,8 @@ GameObject:
   - component: {fileID: 3539226429456991835}
   - component: {fileID: 3539226429456991834}
   - component: {fileID: 3539226429456991829}
-  - component: {fileID: 7056191883004198007}
-  - component: {fileID: 6143953698784948909}
   - component: {fileID: -3796726711009860120}
+  - component: {fileID: 8659913754191523907}
   m_Layer: 0
   m_Name: asteroid
   m_TagString: Untagged
@@ -96,35 +95,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7056191883004198007
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3539226429456991831}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de2d4ba312e4c474494ee28c7c9ce327, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inertia: 0
-  pos: {x: 0, y: 0, z: 0}
-  lifeSpan: 0
-  explosion: {fileID: 1325332407741506380, guid: e5d09d0a49ad2488d9745986b74a9b62,
-    type: 3}
---- !u!114 &6143953698784948909
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3539226429456991831}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8afd1a4494154324b2e5005751f95f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &-3796726711009860120
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -141,3 +111,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &8659913754191523907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3539226429456991831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de2d4ba312e4c474494ee28c7c9ce327, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inertia: 0
+  pos: {x: 0, y: 0, z: 0}
+  lifeSpan: 0
+  explosion: {fileID: 1325332407741506380, guid: e5d09d0a49ad2488d9745986b74a9b62,
+    type: 3}
