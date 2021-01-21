@@ -10,7 +10,9 @@ public class User : MonoBehaviour
     public AudioSource sound_source;
 
     public GameObject laser;
-    public int lives = 3;
+    private GameObject Manager_UI;
+
+    public int lives = 8;
     //public bool isTakingHit = false;
 
 
@@ -23,6 +25,9 @@ public class User : MonoBehaviour
         //hook into the audio souce manager
         sound_source = GameObject.Find("Manager_Audio").GetComponent<AudioSource>();
 
+        Manager_UI = GameObject.Find("Manager_UI");
+
+
         //establish time for hit cooldowns
         last_hit_time = Time.time;
     }
@@ -31,7 +36,7 @@ public class User : MonoBehaviour
     void Update()
     {
         if (lives <= 0)
-            Debug.Log("WE'RE DEAD BABY");
+            GameOver();
         
     }
 
@@ -51,5 +56,10 @@ public class User : MonoBehaviour
     {
         sound_source.PlayOneShot(hit_sound);
         lives--;
+    }
+
+    private void GameOver()
+    {
+        Manager_UI.GetComponent<ui_manager>().GameOver();
     }
 }

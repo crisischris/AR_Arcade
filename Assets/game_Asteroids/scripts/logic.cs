@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class logic : MonoBehaviour
+public class Logic : MonoBehaviour
 {
     //THIS IS BAD STYLE, i'm packing all into this script when I should use more OOP
 
@@ -71,6 +71,10 @@ public class logic : MonoBehaviour
     }
 
 
+    public void Pause()
+    {
+        Time.timeScale = 0;
+    }
     //OBSOLETE
     /*
     private void DestroyOldAsteroids()

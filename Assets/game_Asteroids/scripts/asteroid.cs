@@ -10,6 +10,13 @@ public class Asteroid : MonoBehaviour
     public AudioSource sound_source;
 
 
+    //set range min / max
+    private float scale_min = .3f;
+    private float scale_max = 1f;
+    private float inertia_min = .07f;
+    private float inertia_max = .12f;
+
+
     public static int count = 0;
     //asteroid public vars
     public float inertia;
@@ -95,10 +102,10 @@ public class Asteroid : MonoBehaviour
 
 
         //assign random size of asteroid
-        float randomScale = Random.Range(.1f, 1.3f);
+        float randomScale = Random.Range(scale_min, scale_max);
 
         //assign random intertia for spawned astroid
-        inertia = Random.Range(.05f, .15f);
+        inertia = Random.Range(inertia_min, inertia_max);
 
 
         //apply the randoms to the asteroid
