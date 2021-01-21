@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class Asteroid : MonoBehaviour
 {
+
+    //Audio related to class
+    public AudioClip[] asteroid_sound;
+    public AudioSource sound_source;
+
+
     public static int count = 0;
     //asteroid public vars
     public float inertia;
@@ -32,6 +38,12 @@ public class Asteroid : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        //hook into the audio souce manager
+        sound_source = GameObject.Find("Manager_Audio").GetComponent<AudioSource>();
+
+        
+
         count++;
         //hook into ui_manager
         ui_manager = GameObject.Find("Manager_UI");
@@ -70,7 +82,7 @@ public class Asteroid : MonoBehaviour
 
         //we don't want to randomize the Y or else the user will have to be looking
         //towards the ground
-        randomY = Random.Range(userY + 10, userY + 20);
+        randomY = Random.Range(userY + 5, userY + 10);
 
 
         //flip for Z pos
@@ -138,6 +150,9 @@ public class Asteroid : MonoBehaviour
     //Asteroid is then destroyed
     public void selfDestruct()
     {
+        
+
+
         //Implimenting the dying variable to stop race condition
         //where the asteroid would call mulitple selfDestructs in a
         //single frame
@@ -169,6 +184,12 @@ public class Asteroid : MonoBehaviour
             //rectify this double explosion
             if(!dying)
             {
+                //pick a random explosion sound and play it
+                int pick = Random.Range(0, 3);
+                //TODO
+                //sounds 0 and 2 are too soft
+                sound_source.PlayOneShot(asteroid_sound[1]);
+
                 dying = true;
                 selfDestruct();
 
@@ -181,20 +202,19 @@ public class Asteroid : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        user.GetComponent<User>().hit_time = Time.time;
+        //hook the user
+        var usr = user.GetComponent<User>();
+        usr.hit_time = Time.time;
 
         //detect if hit was on plater
         if (collision.gameObject.CompareTag("player"))
         {
             //cooldown is over baby
-            if (user.GetComponent<User>().hit_time - user.GetComponent<User>().last_hit_time > 1)
+            if (usr.hit_time - user.GetComponent<User>().last_hit_time > .5)
             {
                 //assign latest hit time relative to the game start
-                user.GetComponent<User>().last_hit_time = user.GetComponent<User>().hit_time;
-
-                //decrement life 
-                user.GetComponent<User>().lives--;
-
+                usr.last_hit_time = user.GetComponent<User>().hit_time;
+                usr.tookHit();
             }
         }
     }

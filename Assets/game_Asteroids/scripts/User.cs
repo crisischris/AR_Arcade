@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class User : MonoBehaviour
 {
+
+    //Audio related to class
+    public AudioClip hit_sound;
+    public AudioSource sound_source;
+
     public GameObject laser;
     public int lives = 3;
     //public bool isTakingHit = false;
@@ -15,6 +20,9 @@ public class User : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //hook into the audio souce manager
+        sound_source = GameObject.Find("Manager_Audio").GetComponent<AudioSource>();
+
         //establish time for hit cooldowns
         last_hit_time = Time.time;
     }
@@ -35,5 +43,13 @@ public class User : MonoBehaviour
         //adjust the shot down
         shot.transform.position = new Vector3(shot.transform.position.x, shot.transform.position.y - .1f, shot.transform.position.z);
         shot.transform.rotation = gameObject.transform.rotation;
+        //shot.transform.eulerAngles = new Vector3(90, transform.rotation.y, transform.rotation.z);
+
+    }
+
+    public void tookHit()
+    {
+        sound_source.PlayOneShot(hit_sound);
+        lives--;
     }
 }
