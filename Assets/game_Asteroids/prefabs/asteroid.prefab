@@ -129,6 +129,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d7a3109a44f0a43268e4924da9a727dc, type: 3}
   - {fileID: 8300000, guid: 1bfcf08b25d074cae90dd57770375049, type: 3}
   sound_source: {fileID: 0}
+  asteroid_source: {fileID: 3539226429456991831}
   inertia: 0
   pos: {x: 0, y: 0, z: 0}
   lifeSpan: 0

@@ -73,7 +73,9 @@ public class Logic : MonoBehaviour
 
     public void Pause()
     {
-        Time.timeScale = 0;
+        //Time.timeScale = 0;
+        //TODO
+        //figure out how to stop asteroids
     }
     //OBSOLETE
     /*

@@ -12,7 +12,7 @@ public class User : MonoBehaviour
     public GameObject laser;
     private GameObject Manager_UI;
 
-    public int lives = 8;
+    public int lives;
     //public bool isTakingHit = false;
 
 
@@ -41,7 +41,7 @@ public class User : MonoBehaviour
     }
 
 
-    public void shoot()
+    public void Shoot()
     {
         GameObject shot = Instantiate(laser);
         shot.transform.position = gameObject.transform.position;
@@ -52,7 +52,7 @@ public class User : MonoBehaviour
 
     }
 
-    public void tookHit()
+    public void TookHit()
     {
         sound_source.PlayOneShot(hit_sound);
         lives--;
@@ -60,6 +60,6 @@ public class User : MonoBehaviour
 
     private void GameOver()
     {
-        Manager_UI.GetComponent<ui_manager>().GameOver();
+        Manager_UI.GetComponent<UI_manager>().GameOver();
     }
 }

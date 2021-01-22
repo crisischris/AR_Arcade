@@ -5,14 +5,19 @@ using UnityEngine;
 public class Asteroid : MonoBehaviour
 {
 
+
+    //isChild is a switch that tells us we do not generate variabels, instead
+    //we inherit them from the parent
+    public bool isChild = false;
+
     //Audio related to class
     public AudioClip[] asteroid_sound;
     public AudioSource sound_source;
-
+    public GameObject asteroid_source;
 
     //set range min / max
     private float scale_min = .3f;
-    private float scale_max = 1f;
+    private float scale_max = 1.2f;
     private float inertia_min = .07f;
     private float inertia_max = .12f;
 
@@ -35,8 +40,6 @@ public class Asteroid : MonoBehaviour
     private int score = 100;
     private bool dying = false;
 
-   
-
 
 
     //TODO
@@ -45,6 +48,7 @@ public class Asteroid : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log(isChild);
 
         //hook into the audio souce manager
         sound_source = GameObject.Find("Manager_Audio").GetComponent<AudioSource>();
@@ -104,27 +108,31 @@ public class Asteroid : MonoBehaviour
         //assign random size of asteroid
         float randomScale = Random.Range(scale_min, scale_max);
 
-        //assign random intertia for spawned astroid
-        inertia = Random.Range(inertia_min, inertia_max);
 
+        //If we are not a child, we need to make all of these.
+        //If we are a child, we should have inherited all of these
+        if(!isChild)
+        {
+            //apply the randoms to the asteroid
+            inertia = Random.Range(inertia_min, inertia_max);
+            transform.localScale = new Vector3(randomScale, randomScale, randomScale);
+            transform.position = new Vector3(randomX, randomY, randomZ);
 
-        //apply the randoms to the asteroid
-        transform.localScale = new Vector3(randomScale, randomScale, randomScale);
-        transform.position = new Vector3(randomX, randomY, randomZ);
+            //TODO
+            //We need to rotate the asteriod on spawn to look at or towards the user
+            //random noise towards
+            //vector math needed here
 
-        //TODO
-        //We need to rotate the asteriod on spawn to look at or towards the user
-        //random noise towards
-        //vector math needed here
+            //TODO
+            //understand how to timer self-destruct.
+            //StartSelfDestruct();
 
-        //TODO
-        //understand how to timer self-destruct.
-        //StartSelfDestruct();
-
-        //rotate towards the target at instantiation
-        Vector3 target = user.transform.position - transform.position;
-        Vector3 newDirection = Vector3.RotateTowards(transform.forward, target, Mathf.PI, 0.0f);
-        transform.rotation = Quaternion.LookRotation(newDirection);
+            //rotate towards the target at instantiation
+            Vector3 target = user.transform.position - transform.position;
+            Vector3 newDirection = Vector3.RotateTowards(transform.forward, target, Mathf.PI, 0.0f);
+            transform.rotation = Quaternion.LookRotation(newDirection);
+        }
+        
     }
 
     // Update is called once per frame
@@ -138,7 +146,7 @@ public class Asteroid : MonoBehaviour
         //move forward over time
         transform.position += transform.forward * inertia;
         if (timeAlive >= lifeSpan)
-            selfDestruct();
+            selfDestruct(false);
     }
 
     //getter
@@ -155,10 +163,11 @@ public class Asteroid : MonoBehaviour
 
     //Explosion is spawned and inherits the asteroid inertia, position and rotation.
     //Asteroid is then destroyed
-    public void selfDestruct()
+    public void selfDestruct(bool fracture)
     {
-        
 
+        if (fracture)
+            Fracture();
 
         //Implimenting the dying variable to stop race condition
         //where the asteroid would call mulitple selfDestructs in a
@@ -185,7 +194,7 @@ public class Asteroid : MonoBehaviour
         if(collision.gameObject.CompareTag("projectile"))
         {
             //hook into the manager_ui
-            ui_manager.GetComponent<ui_manager>().highscore += score;
+            ui_manager.GetComponent<UI_manager>().highscore += score;
 
             //TODO
             //rectify this double explosion
@@ -198,7 +207,12 @@ public class Asteroid : MonoBehaviour
                 sound_source.PlayOneShot(asteroid_sound[1]);
 
                 dying = true;
-                selfDestruct();
+
+                //check to see if fracturable
+                if (transform.localScale.x / 2 > scale_min)
+                    selfDestruct(true);
+                else
+                    selfDestruct(false);
 
             }
         }
@@ -221,10 +235,41 @@ public class Asteroid : MonoBehaviour
             {
                 //assign latest hit time relative to the game start
                 usr.last_hit_time = user.GetComponent<User>().hit_time;
-                usr.tookHit();
+                usr.TookHit();
             }
         }
     }
+
+    private void Fracture()
+    {
+        var child1 = Instantiate(asteroid_source);
+        var child2 = Instantiate(asteroid_source);
+        child1.name = "child1";
+        child2.name = "child1";
+
+        //hacky way of inhereting all of the old vars from the parent asteroid
+        child1.GetComponent<Asteroid>().inertia = inertia;
+        child1.GetComponent<Asteroid>().isChild = true;
+
+        //slightly move new asteroids away from eachother
+        child1.transform.position = new Vector3(transform.position.x + .5f, transform.position.y, transform.position.z);
+        child1.transform.rotation = transform.rotation;
+        child1.transform.localScale = new Vector3(transform.localScale.x / 2, transform.localScale.y / 2, transform.localScale.z / 2);
+        //child1.transform.localRotation = new Quaternion(transform.rotation.x, transform.rotation.y + 20f, transform.rotation.z, 1);
+
+        child2.GetComponent<Asteroid>().inertia = inertia;
+        child2.GetComponent<Asteroid>().isChild = true;
+
+        //slightly move new asteroids away from eachother
+        child2.transform.position = new Vector3(transform.position.x + .5f, transform.position.y, transform.position.z);
+        child2.transform.position = transform.position;
+        child2.transform.rotation = transform.rotation;
+        child2.transform.localScale = new Vector3(transform.localScale.x / 2, transform.localScale.y / 2, transform.localScale.z / 2);
+        //child2.transform.localRotation = new Quaternion(transform.rotation.x, transform.rotation.y - 20f, transform.rotation.z, 1);
+
+    }
+
+
 
     //private IEnumerator hitCountDown()
     //{

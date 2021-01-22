@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
-public class ui_manager : MonoBehaviour
+
+public class UI_manager : MonoBehaviour
 {
     //TODO
     //Do we really want all of these publics or do we want on start to collect necessary objects?
@@ -12,6 +14,9 @@ public class ui_manager : MonoBehaviour
     public Text lives;
     public Text asteroids_count;
     public Text gameOver;
+    public Button button_playAgain;
+    public Button button_exit;
+
 
     private string string_amount_lives;
 
@@ -29,9 +34,9 @@ public class ui_manager : MonoBehaviour
     private static int y_padding_asteroids_count = y_padding_lives + 100;
     private static string life_symbol = "▐ ";
 
-    private string one_life = life_symbol;
-    private string two_lives = life_symbol + ' ' + life_symbol;
-    private string three_lives = life_symbol + ' ' + life_symbol + ' ' + life_symbol;
+    //private string one_life = life_symbol;
+    //private string two_lives = life_symbol + ' ' + life_symbol;
+    //private string three_lives = life_symbol + ' ' + life_symbol + ' ' + life_symbol;
 
 
     //TODO
@@ -42,8 +47,14 @@ public class ui_manager : MonoBehaviour
         tmp_high_score.transform.position = new Vector2(x_padding, Screen.height - y_padding_score);
         lives.transform.position = new Vector2(x_padding, Screen.height - y_padding_lives);
         asteroids_count.transform.position = new Vector2(x_padding, Screen.height - y_padding_asteroids_count);
+
         gameOver.transform.position = new Vector2(Screen.width/2, Screen.height/2);
-        gameOver.gameObject.SetActive(false);
+        button_playAgain.gameObject.transform.position = new Vector2(Screen.width / 2, Screen.height / 2 - 200);
+        button_exit.gameObject.transform.position = new Vector2(Screen.width / 2, Screen.height / 2 - 400);
+
+
+        TurnOffGameOverUI();
+   
     }
 
     // Start is called before the first frame update
@@ -101,13 +112,7 @@ public class ui_manager : MonoBehaviour
     }
 
 
-    //turn of extranious UI for gameover
-    private void turnOffUI()
-    {
-        lives.gameObject.SetActive(false);
-        asteroids_count.gameObject.SetActive(false);
-        
-    }
+   
     public void GameOver()
     {
 
@@ -115,12 +120,48 @@ public class ui_manager : MonoBehaviour
         //persist High score if greater than starting HS
         GameObject.Find("Manager_Logic").GetComponent<Logic>().Pause();
         
-        //turn off un-needed UI
-        turnOffUI();
+        //turn off / on UI
+        TurnOffUI();
+        TurnOnGameOverUI();
 
-        //turn on game over
-        gameOver.gameObject.SetActive(true);
+       
+
+        //arrange high score to center
         tmp_high_score.transform.position = new Vector2(Screen.width / 2, Screen.height / 2 + 100);
         tmp_high_score.alignment = TextAnchor.MiddleCenter;
+    }
+
+    //turn of extranious UI for gameover
+    private void TurnOffUI()
+    {
+        lives.gameObject.SetActive(false);
+        asteroids_count.gameObject.SetActive(false);
+
+    }
+
+    private void TurnOffGameOverUI()
+    {
+        gameOver.gameObject.SetActive(false);
+        button_playAgain.gameObject.SetActive(false);
+        button_exit.gameObject.SetActive(false);
+    }
+
+    private void TurnOnGameOverUI()
+    {
+        //turn on game over and nav buttons
+        gameOver.gameObject.SetActive(true);
+        button_playAgain.gameObject.SetActive(true);
+        button_exit.gameObject.SetActive(true);
+    }
+
+    public void PlayAgain()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.name);
+    }
+
+    public void  ExitToHome()
+    {
+        SceneManager.LoadScene(0);
     }
 }
