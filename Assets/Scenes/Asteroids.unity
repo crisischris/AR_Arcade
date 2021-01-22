@@ -424,7 +424,7 @@ RectTransform:
   m_Children:
   - {fileID: 1500914346}
   m_Father: {fileID: 506522974}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1007,7 +1007,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 506522974}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1156,6 +1156,7 @@ RectTransform:
   - {fileID: 2054307575}
   - {fileID: 919013060}
   - {fileID: 1038821135}
+  - {fileID: 2005951933}
   - {fileID: 492139930}
   - {fileID: 43245253}
   - {fileID: 1371315359}
@@ -1836,7 +1837,7 @@ GameObject:
   - component: {fileID: 1038821137}
   - component: {fileID: 1038821136}
   m_Layer: 5
-  m_Name: asteroid count
+  m_Name: DEBUG - asteroid count
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2217,7 +2218,7 @@ RectTransform:
   m_Children:
   - {fileID: 386234602}
   m_Father: {fileID: 506522974}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2537,7 +2538,7 @@ MonoBehaviour:
   hit_sound: {fileID: 8300000, guid: 04e1ec379de4747568e2a4fbb2559497, type: 3}
   sound_source: {fileID: 0}
   laser: {fileID: 6260837628114533747, guid: 5de057c35740440b69e9e17388007968, type: 3}
-  lives: 5
+  lives: 8
   hit_time: 0
   last_hit_time: Infinity
 --- !u!1 &1583907632
@@ -3039,9 +3040,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0b5f0e4dcc6a461dae900757fe05644, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TrackingState: 1
   tmp_high_score: {fileID: 2054307576}
   lives: {fileID: 919013061}
   asteroids_count: {fileID: 1038821136}
+  AR_session_state: {fileID: 2005951934}
   gameOver: {fileID: 492139931}
   button_playAgain: {fileID: 43245254}
   button_exit: {fileID: 1371315360}
@@ -3481,6 +3484,84 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1852430267}
+  m_CullTransparentMesh: 0
+--- !u!1 &2005951932
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2005951933}
+  - component: {fileID: 2005951935}
+  - component: {fileID: 2005951934}
+  m_Layer: 5
+  m_Name: DEBUG - AR session state
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2005951933
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2005951932}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 506522974}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 650, y: 200}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2005951934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2005951932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 86aa76d03963d4cb3a40aa436ce44e59, type: 3}
+    m_FontSize: 50
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 5
+    m_MaxSize: 50
+    m_Alignment: 1
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 'tracking: none'
+--- !u!222 &2005951935
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2005951932}
   m_CullTransparentMesh: 0
 --- !u!1 &2029197311
 GameObject:

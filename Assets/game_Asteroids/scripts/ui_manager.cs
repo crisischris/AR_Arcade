@@ -3,19 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.XR;
+using UnityEngine.XR.ARFoundation;
+using UnityEngine.XR.ARSubsystems;
 
 public class UI_manager : MonoBehaviour
 {
     //TODO
     //Do we really want all of these publics or do we want on start to collect necessary objects?
-
+    public bool TrackingState;
     public Text tmp_high_score;
     public Text lives;
     public Text asteroids_count;
+    public Text AR_session_state;
     public Text gameOver;
     public Button button_playAgain;
     public Button button_exit;
+
 
 
     private string string_amount_lives;
@@ -47,6 +51,8 @@ public class UI_manager : MonoBehaviour
         tmp_high_score.transform.position = new Vector2(x_padding, Screen.height - y_padding_score);
         lives.transform.position = new Vector2(x_padding, Screen.height - y_padding_lives);
         asteroids_count.transform.position = new Vector2(x_padding, Screen.height - y_padding_asteroids_count);
+        AR_session_state.transform.position = new Vector2(Screen.width / 2, 100);
+
 
         gameOver.transform.position = new Vector2(Screen.width/2, Screen.height/2);
         button_playAgain.gameObject.transform.position = new Vector2(Screen.width / 2, Screen.height / 2 - 200);
@@ -67,6 +73,14 @@ public class UI_manager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //DEBUG AR session state
+        var state = ARSession.state;
+        if (TrackingState)
+            AR_session_state.text = "tracking: " + state.ToString();
+        else
+            AR_session_state.text = "";
+
+
         //get static count of asteroids
         asteroid_count = Asteroid.count;
 
