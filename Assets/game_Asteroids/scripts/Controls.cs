@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// This Class controls the shooting mechanic by the user.  It recognizes touch counts and
+/// shoots accordingly.
+/// </summary>
 public class Controls : MonoBehaviour
 {
     //touch vars

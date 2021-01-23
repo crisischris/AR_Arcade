@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This class defines the behavior of the asteroid object
+/// This class is attached to the object prefab and once instantiated,
+/// tracks iteself and does not need to be kept in a list to observe.
+/// This class has a selfdestruct method that is called after x amount of time
+/// </summary>
 public class Asteroid : MonoBehaviour
 {
 
@@ -22,7 +28,7 @@ public class Asteroid : MonoBehaviour
     private float inertia_max = .12f;
 
 
-    public static int count = 0;
+    private static int count = 0;
     //asteroid public vars
     public float inertia;
     public Vector3 pos;
@@ -48,12 +54,8 @@ public class Asteroid : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log(isChild);
-
         //hook into the audio souce manager
         sound_source = GameObject.Find("Manager_Audio").GetComponent<AudioSource>();
-
-        
 
         count++;
         //hook into ui_manager
@@ -87,9 +89,9 @@ public class Asteroid : MonoBehaviour
         randomFlip = Random.Range(0, 2);
 
         if (randomFlip == 1)
-            randomX = Random.Range(userX - 10, userX - 20);
+            randomX = Random.Range(userX - 15, userX - 25);
         else
-            randomX = Random.Range(userX + 10, userX + 20);
+            randomX = Random.Range(userX + 15, userX + 25);
 
         //we don't want to randomize the Y or else the user will have to be looking
         //towards the ground
@@ -100,9 +102,9 @@ public class Asteroid : MonoBehaviour
         randomFlip = Random.Range(0, 2);
 
         if (randomFlip == 1)
-            randomZ = Random.Range(userZ - 10, userZ - 20);
+            randomZ = Random.Range(userZ - 15, userZ - 25);
         else
-            randomZ = Random.Range(userZ + 10, userZ + 20);
+            randomZ = Random.Range(userZ + 15, userZ + 25);
 
 
         //assign random size of asteroid
@@ -145,25 +147,17 @@ public class Asteroid : MonoBehaviour
 
         //move forward over time
         transform.position += transform.forward * inertia;
-        if (timeAlive >= lifeSpan)
-            selfDestruct(false);
+
+        //check to see if we are too old or if the gameover state is true
+        if (timeAlive >= lifeSpan || Logic.GlobalGameOverState)
+            SelfDestruct(false);
     }
 
-    //getter
-    public int getTimeAlive()
-    {
-        return timeAlive;
-    }
-
-    //getter
-    public int getLifeSpan()
-    {
-        return lifeSpan;
-    }
+  
 
     //Explosion is spawned and inherits the asteroid inertia, position and rotation.
     //Asteroid is then destroyed
-    public void selfDestruct(bool fracture)
+    public void SelfDestruct(bool fracture)
     {
 
         if (fracture)
@@ -210,9 +204,9 @@ public class Asteroid : MonoBehaviour
 
                 //check to see if fracturable
                 if (transform.localScale.x / 2 > scale_min)
-                    selfDestruct(true);
+                    SelfDestruct(true);
                 else
-                    selfDestruct(false);
+                    SelfDestruct(false);
 
             }
         }
@@ -221,6 +215,10 @@ public class Asteroid : MonoBehaviour
 
     }
 
+
+    //This method is used to determine a hit on the user
+    //There is a cooldown built in so the user doesn't take
+    //massive concurrent damage 
     private void OnTriggerEnter(Collider collision)
     {
         //hook the user
@@ -240,6 +238,9 @@ public class Asteroid : MonoBehaviour
         }
     }
 
+
+    //This method spawns two smaller asteroids and inherits all of the
+    //vars of the parent asteroid (except 1/2 the scale).
     private void Fracture()
     {
         var child1 = Instantiate(asteroid_source);
@@ -267,6 +268,16 @@ public class Asteroid : MonoBehaviour
         child2.transform.localScale = new Vector3(transform.localScale.x / 2, transform.localScale.y / 2, transform.localScale.z / 2);
         //child2.transform.localRotation = new Quaternion(transform.rotation.x, transform.rotation.y - 20f, transform.rotation.z, 1);
 
+    }
+
+    public static void ResetCount()
+    {
+        count = 0;
+    }
+
+    public static int GetCount()
+    {
+        return count;
     }
 
 
