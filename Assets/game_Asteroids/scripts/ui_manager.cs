@@ -38,7 +38,7 @@ public class UI_manager : MonoBehaviour
     private static int y_padding_score = 225;
 
     private int asteroid_count;
-  
+
 
     private static int y_padding_lives = y_padding_score + 100;
     private static int y_padding_asteroids_count = y_padding_lives + 100;
@@ -60,13 +60,13 @@ public class UI_manager : MonoBehaviour
         AR_session_state.transform.position = new Vector2(Screen.width / 2, 100);
 
 
-        gameOver.transform.position = new Vector2(Screen.width/2, Screen.height/2);
+        gameOver.transform.position = new Vector2(Screen.width / 2, Screen.height / 2);
         button_playAgain.gameObject.transform.position = new Vector2(Screen.width / 2, Screen.height / 2 - 200);
         button_exit.gameObject.transform.position = new Vector2(Screen.width / 2, Screen.height / 2 - 400);
 
 
         TurnOffGameOverUI();
-   
+
     }
 
     // Start is called before the first frame update
@@ -105,7 +105,7 @@ public class UI_manager : MonoBehaviour
     }
 
 
-   
+
     public void GameOver()
     {
 
@@ -172,12 +172,12 @@ public class UI_manager : MonoBehaviour
         //reset the static count of asteroids
         Asteroid.ResetCount();
 
-        
+
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);
     }
 
-    public void  ExitToHome()
+    public void ExitToHome()
     {
         SceneManager.LoadScene(0);
     }
