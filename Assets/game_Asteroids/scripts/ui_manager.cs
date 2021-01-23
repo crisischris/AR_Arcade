@@ -7,6 +7,7 @@ using UnityEngine.XR;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 
+
 /// <summary>
 /// This class handles all of the visible UI on screen.  This UI should be
 /// device agnostic as it is using the device dimensions to arrange UI.  This
@@ -17,7 +18,9 @@ public class UI_manager : MonoBehaviour
     //TODO
     //Do we really want all of these publics or do we want on start to collect necessary objects?
     public bool TrackingState;
-    public Text tmp_high_score;
+    public Text highScoreText;
+    public Text finalScoreText;
+    public Text liveScoreText;
     public Text lives;
     public Text debug_asteroids_count;
     public Text AR_session_state;
@@ -25,14 +28,12 @@ public class UI_manager : MonoBehaviour
     public Button button_playAgain;
     public Button button_exit;
 
-
-
     private string string_amount_lives;
 
     private GameObject user;
     private int lives_left;
 
-    public int highscore = 0;
+    public int score = 0;
     private static int x_padding = 325;
     private static int y_padding_score = 225;
 
@@ -53,7 +54,7 @@ public class UI_manager : MonoBehaviour
 
     void Awake()
     {
-        tmp_high_score.transform.position = new Vector2(x_padding, Screen.height - y_padding_score);
+        liveScoreText.transform.position = new Vector2(x_padding, Screen.height - y_padding_score);
         lives.transform.position = new Vector2(x_padding, Screen.height - y_padding_lives);
         debug_asteroids_count.transform.position = new Vector2(x_padding, Screen.height - y_padding_asteroids_count);
         AR_session_state.transform.position = new Vector2(Screen.width / 2, 100);
@@ -88,10 +89,8 @@ public class UI_manager : MonoBehaviour
         else
             AR_session_state.text = "";
 
-
         //get static count of asteroids
         asteroid_count = Asteroid.GetCount();
-
 
         lives_left = user.GetComponent<User>().lives;
         string_amount_lives = "";
@@ -100,8 +99,7 @@ public class UI_manager : MonoBehaviour
         for (int i = 0; i < lives_left; i++)
             string_amount_lives += life_symbol;
 
-        
-        tmp_high_score.text = highscore.ToString();
+        liveScoreText.text = score.ToString();
         lives.text = string_amount_lives;
         debug_asteroids_count.text = asteroid_count.ToString();
     }
@@ -110,13 +108,26 @@ public class UI_manager : MonoBehaviour
    
     public void GameOver()
     {
+
         //turn off / on UI
         TurnOffUI();
         TurnOnGameOverUI();
 
+        //compare score to high score
+        int highScore = PlayerPrefs.GetInt("Asteroids_high_score", 0);
+
+        //set the new highscore
+        if (score > highScore)
+            PlayerPrefs.SetInt("Asteroids_high_score", score);
+
         //arrange high score to center
-        tmp_high_score.transform.position = new Vector2(Screen.width / 2, Screen.height / 2 + 100);
-        tmp_high_score.alignment = TextAnchor.MiddleCenter;
+        finalScoreText.transform.position = new Vector2(Screen.width / 2, Screen.height / 2 + 200);
+        finalScoreText.alignment = TextAnchor.MiddleCenter;
+        finalScoreText.text = "score: " + score.ToString();
+
+        highScoreText.transform.position = new Vector2(Screen.width / 2, Screen.height / 2 + 300);
+        highScoreText.alignment = TextAnchor.MiddleCenter;
+        highScoreText.text = "high score: " + highScore.ToString();
     }
 
     //turn of extranious UI for gameover
@@ -124,6 +135,8 @@ public class UI_manager : MonoBehaviour
     {
         lives.gameObject.SetActive(false);
         debug_asteroids_count.gameObject.SetActive(false);
+        liveScoreText.gameObject.SetActive(false);
+        AR_session_state.gameObject.SetActive(false);
 
     }
 
@@ -132,6 +145,8 @@ public class UI_manager : MonoBehaviour
         gameOver.gameObject.SetActive(false);
         button_playAgain.gameObject.SetActive(false);
         button_exit.gameObject.SetActive(false);
+        highScoreText.gameObject.SetActive(false);
+        finalScoreText.gameObject.SetActive(false);
     }
 
     private void TurnOnGameOverUI()
@@ -140,13 +155,16 @@ public class UI_manager : MonoBehaviour
         gameOver.gameObject.SetActive(true);
         button_playAgain.gameObject.SetActive(true);
         button_exit.gameObject.SetActive(true);
+        highScoreText.gameObject.SetActive(true);
+        finalScoreText.gameObject.SetActive(true);
     }
 
     private void TurnOnPlayUI()
     {
         lives.gameObject.SetActive(true);
-        tmp_high_score.gameObject.SetActive(true);
+        liveScoreText.gameObject.SetActive(true);
         debug_asteroids_count.gameObject.SetActive(true);
+        AR_session_state.gameObject.SetActive(true);
     }
 
     public void PlayAgain()

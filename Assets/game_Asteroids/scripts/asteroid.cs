@@ -43,14 +43,14 @@ public class Asteroid : MonoBehaviour
     private float userX;
     private float userY;
     private float userZ;
-    private int score = 100;
+    private int points;
     private bool dying = false;
 
 
 
     //TODO
     //collision detection
-
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -58,6 +58,7 @@ public class Asteroid : MonoBehaviour
         sound_source = GameObject.Find("Manager_Audio").GetComponent<AudioSource>();
 
         count++;
+
         //hook into ui_manager
         ui_manager = GameObject.Find("Manager_UI");
 
@@ -134,6 +135,13 @@ public class Asteroid : MonoBehaviour
             Vector3 newDirection = Vector3.RotateTowards(transform.forward, target, Mathf.PI, 0.0f);
             transform.rotation = Quaternion.LookRotation(newDirection);
         }
+
+
+        //set the value of the asteroid based on size
+        if (transform.localScale.x < .5f)
+            points = 50;
+        else
+            points = 100;
         
     }
 
@@ -188,7 +196,7 @@ public class Asteroid : MonoBehaviour
         if(collision.gameObject.CompareTag("projectile"))
         {
             //hook into the manager_ui
-            ui_manager.GetComponent<UI_manager>().highscore += score;
+            ui_manager.GetComponent<UI_manager>().score += points;
 
             //TODO
             //rectify this double explosion

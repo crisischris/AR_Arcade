@@ -13,6 +13,7 @@ public class Logic : MonoBehaviour
     public int counter;
     private GameObject user;
 
+
     public static bool GlobalGameOverState = false;
 
     //this is to keep track of our asteroids
