@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class input : MonoBehaviour
+/// <summary>
+/// This Class controls the shooting mechanic by the user.  It recognizes touch counts and
+/// shoots accordingly.
+/// </summary>
+public class Controls : MonoBehaviour
 {
     //touch vars
     private Touch touch;
     private GameObject user;
 
+   
     public Text debugText;
     public string debugString;
 
@@ -73,7 +78,7 @@ public class input : MonoBehaviour
         //remove the space key after debug
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            user.GetComponent<User>().shoot();
+            user.GetComponent<User>().Shoot();
         }
       
         if (Input.touchCount > 0)
@@ -97,7 +102,7 @@ public class input : MonoBehaviour
 
                     //this is a tap, not a swipe
                     if (max - min < 25)
-                        user.GetComponent<User>().shoot();
+                        user.GetComponent<User>().Shoot();
 
                     //this is a movement
                     else
@@ -117,6 +122,7 @@ public class input : MonoBehaviour
         else
             interia = 0;
 
-
     }
+
+   
 }

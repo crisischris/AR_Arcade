@@ -13,6 +13,9 @@ public class Logic : MonoBehaviour
     public int counter;
     private GameObject user;
 
+
+    public static bool GlobalGameOverState = false;
+
     //this is to keep track of our asteroids
     //public List<GameObject> asteroidList = new List<GameObject>();
     public GameObject asteroid;
@@ -29,33 +32,33 @@ public class Logic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //reset the gameover state
+        GlobalGameOverState = false;
+
+        //hook the user
         user = GameObject.Find("AR Session Origin");
     }
 
     // Update is called once per frame
     void Update()
     {
-        //DestroyOldAsteroids();
-
         userX = user.transform.position.x;
         userY = user.transform.position.y;
         userZ = user.transform.position.z;
 
-        //time = (int)Time.time;
-
         //makeshift counter
         //TODO
         //better counter logic?
-        if (counter >= 120)
+
+        //check the delta frames and also the gameover state
+        if (counter >= 120 && !GlobalGameOverState)
         {
             counter = 0;
             spawnAsteroid();
         }
 
-        //NO
-        //StartCoroutine(wait(2));
+        //tick the frame counter
         counter++;
-
     }
 
     //TODO
@@ -67,30 +70,7 @@ public class Logic : MonoBehaviour
     {
         var curAsteroid = Instantiate(asteroid);
         curAsteroid.name = "asteroid";
-        //asteroidList.Add(asteroid);
     }
-
-
-    public void Pause()
-    {
-        Time.timeScale = 0;
-    }
-    //OBSOLETE
-    /*
-    private void DestroyOldAsteroids()
-    {
-        for(int i = 0; i < asteroidList.Count; i++)
-        {
-            var script = asteroidList[i].GetComponent<asteroid>();
-
-            if (script.getTimeAlive() >= script.getLifeSpan())
-            {
-                script.selfDestruct();
-                asteroidList.Remove(asteroidList[i]);
-            }
-        }
-    }
-    */
 
     //IEnumerator wait(int waitTime)
     //{

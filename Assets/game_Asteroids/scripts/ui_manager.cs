@@ -2,23 +2,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using UnityEngine.XR;
+using UnityEngine.XR.ARFoundation;
+using UnityEngine.XR.ARSubsystems;
 
-public class ui_manager : MonoBehaviour
+
+/// <summary>
+/// This class handles all of the visible UI on screen.  This UI should be
+/// device agnostic as it is using the device dimensions to arrange UI.  This
+/// class also handles the button clicks of the menu.
+/// </summary>
+public class UI_manager : MonoBehaviour
 {
     //TODO
     //Do we really want all of these publics or do we want on start to collect necessary objects?
-
-    public Text tmp_high_score;
+    public bool TrackingState;
+    public Text highScoreText;
+    public Text finalScoreText;
+    public Text liveScoreText;
     public Text lives;
-    public Text asteroids_count;
+    public Text debug_asteroids_count;
+    public Text AR_session_state;
     public Text gameOver;
+    public Button button_playAgain;
+    public Button button_exit;
 
     private string string_amount_lives;
 
     private GameObject user;
     private int lives_left;
 
-    public int highscore = 0;
+    public int score = 0;
     private static int x_padding = 325;
     private static int y_padding_score = 225;
 
@@ -29,9 +44,9 @@ public class ui_manager : MonoBehaviour
     private static int y_padding_asteroids_count = y_padding_lives + 100;
     private static string life_symbol = "▐ ";
 
-    private string one_life = life_symbol;
-    private string two_lives = life_symbol + ' ' + life_symbol;
-    private string three_lives = life_symbol + ' ' + life_symbol + ' ' + life_symbol;
+    //private string one_life = life_symbol;
+    //private string two_lives = life_symbol + ' ' + life_symbol;
+    //private string three_lives = life_symbol + ' ' + life_symbol + ' ' + life_symbol;
 
 
     //TODO
@@ -39,11 +54,19 @@ public class ui_manager : MonoBehaviour
 
     void Awake()
     {
-        tmp_high_score.transform.position = new Vector2(x_padding, Screen.height - y_padding_score);
+        liveScoreText.transform.position = new Vector2(x_padding, Screen.height - y_padding_score);
         lives.transform.position = new Vector2(x_padding, Screen.height - y_padding_lives);
-        asteroids_count.transform.position = new Vector2(x_padding, Screen.height - y_padding_asteroids_count);
+        debug_asteroids_count.transform.position = new Vector2(x_padding, Screen.height - y_padding_asteroids_count);
+        AR_session_state.transform.position = new Vector2(Screen.width / 2, 100);
+
+
         gameOver.transform.position = new Vector2(Screen.width/2, Screen.height/2);
-        gameOver.gameObject.SetActive(false);
+        button_playAgain.gameObject.transform.position = new Vector2(Screen.width / 2, Screen.height / 2 - 200);
+        button_exit.gameObject.transform.position = new Vector2(Screen.width / 2, Screen.height / 2 - 400);
+
+
+        TurnOffGameOverUI();
+   
     }
 
     // Start is called before the first frame update
@@ -51,76 +74,111 @@ public class ui_manager : MonoBehaviour
     {
         //hook into the user
         user = GameObject.Find("AR Camera");
+
+        //turn on the UI
+        TurnOnPlayUI();
     }
 
     // Update is called once per frame
     void Update()
     {
+        //DEBUG AR session state
+        var state = ARSession.state;
+        if (TrackingState)
+            AR_session_state.text = "tracking: " + state.ToString();
+        else
+            AR_session_state.text = "";
+
         //get static count of asteroids
-        asteroid_count = Asteroid.count;
+        asteroid_count = Asteroid.GetCount();
 
         lives_left = user.GetComponent<User>().lives;
         string_amount_lives = "";
-        switch (lives_left)
-        {
-            case 8:
-                for (int i = 0; i < 8; i++)
-                    string_amount_lives += life_symbol;
-                break;
-            case 7:
-                for (int i = 0; i < 7; i++)
-                    string_amount_lives += life_symbol;
-                break;
-            case 6:
-                for (int i = 0; i < 6; i++)
-                    string_amount_lives += life_symbol;
-                break;
-            case 5:
-                for (int i = 0; i < 5; i++)
-                    string_amount_lives += life_symbol;
-                break;
-            case 4:
-                for (int i = 0; i < 4; i++)
-                    string_amount_lives += life_symbol;
-                break;
-            case 3:
-                for (int i = 0; i < 3; i++)
-                    string_amount_lives += life_symbol;
-                break;
-            case 2:
-                for (int i = 0; i < 2; i++)
-                    string_amount_lives += life_symbol;
-                break;
-            case 1:
-                string_amount_lives += life_symbol;
-                break;
-        }
-        tmp_high_score.text = highscore.ToString();
+
+        //build the lives left string
+        for (int i = 0; i < lives_left; i++)
+            string_amount_lives += life_symbol;
+
+        liveScoreText.text = score.ToString();
         lives.text = string_amount_lives;
-        asteroids_count.text = asteroid_count.ToString();
+        debug_asteroids_count.text = asteroid_count.ToString();
     }
 
 
-    //turn of extranious UI for gameover
-    private void turnOffUI()
-    {
-        lives.gameObject.SetActive(false);
-        asteroids_count.gameObject.SetActive(false);
-        
-    }
+   
     public void GameOver()
     {
 
-        //TODO
-        //persist High score if greater than starting HS
-        GameObject.Find("Manager_Logic").GetComponent<Logic>().Pause();
-        
-        //turn off un-needed UI
-        turnOffUI();
+        //turn off / on UI
+        TurnOffUI();
+        TurnOnGameOverUI();
 
-        //turn on game over
+        //compare score to high score
+        int highScore = PlayerPrefs.GetInt("Asteroids_high_score", 0);
+
+        //set the new highscore
+        if (score > highScore)
+            PlayerPrefs.SetInt("Asteroids_high_score", score);
+
+        //arrange high score to center
+        finalScoreText.transform.position = new Vector2(Screen.width / 2, Screen.height / 2 + 200);
+        finalScoreText.alignment = TextAnchor.MiddleCenter;
+        finalScoreText.text = "score: " + score.ToString();
+
+        highScoreText.transform.position = new Vector2(Screen.width / 2, Screen.height / 2 + 300);
+        highScoreText.alignment = TextAnchor.MiddleCenter;
+        highScoreText.text = "high score: " + highScore.ToString();
+    }
+
+    //turn of extranious UI for gameover
+    private void TurnOffUI()
+    {
+        lives.gameObject.SetActive(false);
+        debug_asteroids_count.gameObject.SetActive(false);
+        liveScoreText.gameObject.SetActive(false);
+        AR_session_state.gameObject.SetActive(false);
+
+    }
+
+    private void TurnOffGameOverUI()
+    {
+        gameOver.gameObject.SetActive(false);
+        button_playAgain.gameObject.SetActive(false);
+        button_exit.gameObject.SetActive(false);
+        highScoreText.gameObject.SetActive(false);
+        finalScoreText.gameObject.SetActive(false);
+    }
+
+    private void TurnOnGameOverUI()
+    {
+        //turn on game over and nav buttons
         gameOver.gameObject.SetActive(true);
-        tmp_high_score.transform.position = new Vector2(Screen.width / 2, Screen.height / 2 + 100);
-        tmp_high_score.alignment = TextAnchor.MiddleCenter;
+        button_playAgain.gameObject.SetActive(true);
+        button_exit.gameObject.SetActive(true);
+        highScoreText.gameObject.SetActive(true);
+        finalScoreText.gameObject.SetActive(true);
+    }
+
+    private void TurnOnPlayUI()
+    {
+        lives.gameObject.SetActive(true);
+        liveScoreText.gameObject.SetActive(true);
+        debug_asteroids_count.gameObject.SetActive(true);
+        AR_session_state.gameObject.SetActive(true);
+    }
+
+    public void PlayAgain()
+    {
+        //reset the static count of asteroids
+        Asteroid.ResetCount();
+
+        
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.name);
+    }
+
+    public void  ExitToHome()
+    {
+        SceneManager.LoadScene(0);
     }
 }

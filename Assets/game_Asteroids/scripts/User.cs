@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This class has all of the primary functions for the user
+/// This class defines the shoot funciton, and also tracks the lives
+/// of the user and hit state of the user.  It is the first class to
+/// set the gameover state in motion.
+/// </summary>
 public class User : MonoBehaviour
 {
 
@@ -12,7 +18,7 @@ public class User : MonoBehaviour
     public GameObject laser;
     private GameObject Manager_UI;
 
-    public int lives = 8;
+    public int lives;
     //public bool isTakingHit = false;
 
 
@@ -37,22 +43,24 @@ public class User : MonoBehaviour
     {
         if (lives <= 0)
             GameOver();
-        
     }
 
 
-    public void shoot()
+    public void Shoot()
     {
-        GameObject shot = Instantiate(laser);
-        shot.transform.position = gameObject.transform.position;
-        //adjust the shot down
-        shot.transform.position = new Vector3(shot.transform.position.x, shot.transform.position.y - .1f, shot.transform.position.z);
-        shot.transform.rotation = gameObject.transform.rotation;
-        //shot.transform.eulerAngles = new Vector3(90, transform.rotation.y, transform.rotation.z);
-
+        //check to make sure the gameover state is false
+        if(!Logic.GlobalGameOverState)
+        {
+            GameObject shot = Instantiate(laser);
+            shot.transform.position = gameObject.transform.position;
+            //adjust the shot down
+            shot.transform.position = new Vector3(shot.transform.position.x, shot.transform.position.y - .1f, shot.transform.position.z);
+            shot.transform.rotation = gameObject.transform.rotation;
+            //shot.transform.eulerAngles = new Vector3(90, transform.rotation.y, transform.rotation.z);
+        }
     }
 
-    public void tookHit()
+    public void TookHit()
     {
         sound_source.PlayOneShot(hit_sound);
         lives--;
@@ -60,6 +68,8 @@ public class User : MonoBehaviour
 
     private void GameOver()
     {
-        Manager_UI.GetComponent<ui_manager>().GameOver();
+        //set the gameover state
+        Logic.GlobalGameOverState = true;
+        Manager_UI.GetComponent<UI_manager>().GameOver();
     }
 }
