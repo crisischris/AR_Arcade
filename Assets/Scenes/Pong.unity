@@ -425,7 +425,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 714701778}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10, y: 0, z: 0}
+  m_LocalPosition: {x: 5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
@@ -507,7 +507,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 535569342aaf24508afd133fb8ded25a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hit_sound: {fileID: 0}
+  sound_source: {fileID: 0}
   laser: {fileID: 6260837628114533747, guid: 5de057c35740440b69e9e17388007968, type: 3}
+  lives: 8
+  hit_time: 0
+  last_hit_time: Infinity
 --- !u!114 &811971381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -751,7 +756,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1256059846}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10, y: 0, z: 0}
+  m_LocalPosition: {x: -5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
