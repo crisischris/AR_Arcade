@@ -6,7 +6,7 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
     // Velocity Vector
-    Vector3 velocity;
+    public Vector3 velocity;
     [Range(0,1)]
     public float speed = 0.1f;
     // Start is called before the first frame update
@@ -51,6 +51,7 @@ public class Ball : MonoBehaviour
             case "Opp Paddle":
                 velocity.z *= -1f;
                 return;
+
         }
     }
 }
