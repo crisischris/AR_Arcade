@@ -3230,7 +3230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bba914225f2af4c0cae99394a426af41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TrackingState: 1
+  TrackingState: 0
   highScoreText: {fileID: 2054307576}
   finalScoreText: {fileID: 902367726}
   liveScoreText: {fileID: 132590861}
