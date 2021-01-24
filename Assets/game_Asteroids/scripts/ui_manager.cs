@@ -28,6 +28,25 @@ public class UI_manager : MonoBehaviour
     public Button button_playAgain;
     public Button button_exit;
 
+    /// <summary>
+    /// The radar UI
+    /// </summary>
+    public GameObject Radar_UI;
+    public List<GameObject> radars = new List<GameObject>();
+
+    private int side_padding = 40;
+    private int top__bottom_padding  = 40;
+
+    //TODO
+    //some sort of adaptive number here
+    //that is responsive to the actual device
+    private int distance_apart = 200;
+
+    private float idle_alpha = 70f/255f;
+
+
+
+    //////
     private string string_amount_lives;
 
     private GameObject user;
@@ -36,6 +55,8 @@ public class UI_manager : MonoBehaviour
     public int score = 0;
     private static int x_padding = 325;
     private static int y_padding_score = 225;
+
+   
 
     private int asteroid_count;
 
@@ -72,6 +93,9 @@ public class UI_manager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //hook into radar
+        SetupRadar();
+
         //hook into the user
         user = GameObject.Find("AR Camera");
 
@@ -102,6 +126,15 @@ public class UI_manager : MonoBehaviour
         liveScoreText.text = score.ToString();
         lives.text = string_amount_lives;
         debug_asteroids_count.text = asteroid_count.ToString();
+
+        //reset the radar bar colors if not being raycasted
+        foreach(GameObject r in radars)
+        {
+            var image = r.GetComponent<Image>();
+            var curColor = image.color;
+            image.color = new Color(curColor.r, curColor.g, curColor.b, idle_alpha);
+            //Debug.Log("curr color:" + curColor.ToString());
+        }
     }
 
 
@@ -137,6 +170,7 @@ public class UI_manager : MonoBehaviour
         debug_asteroids_count.gameObject.SetActive(false);
         liveScoreText.gameObject.SetActive(false);
         AR_session_state.gameObject.SetActive(false);
+        Radar_UI.SetActive(false);
 
     }
 
@@ -157,6 +191,7 @@ public class UI_manager : MonoBehaviour
         button_exit.gameObject.SetActive(true);
         highScoreText.gameObject.SetActive(true);
         finalScoreText.gameObject.SetActive(true);
+       
     }
 
     private void TurnOnPlayUI()
@@ -180,5 +215,86 @@ public class UI_manager : MonoBehaviour
     public void ExitToHome()
     {
         SceneManager.LoadScene(0);
+    }
+
+
+    //This function sets up the radar. It has a lot of manual setup but should extent
+    //to all mobile devices nicely
+    private void SetupRadar()
+    {
+
+        Radar_UI.SetActive(true);
+
+        //Set up the front radar chunk
+        //note, special find syntax to find a nested gameobject by namae
+        GameObject F1 = GameObject.Find("F1_UI");
+        F1.transform.position = new Vector2(Screen.width / 2 - distance_apart, Screen.height - top__bottom_padding);
+        radars.Add(F1.gameObject);
+
+
+        GameObject F2 = GameObject.Find("F2_UI");
+        F2.transform.position = new Vector2(Screen.width / 2, Screen.height - top__bottom_padding);
+        radars.Add(F2);
+
+        GameObject F3 = GameObject.Find("F3_UI");
+        F3.transform.position = new Vector2(Screen.width / 2 + distance_apart, Screen.height - top__bottom_padding);
+        radars.Add(F3);
+
+
+        //Set up the right radar chunk
+        GameObject R1 = GameObject.Find("R1_UI");
+        radars.Add(R1);
+        R1.transform.position = new Vector2(Screen.width - side_padding, Screen.height / 2 + distance_apart*3);
+
+        GameObject R2 = GameObject.Find("R2_UI");
+        R2.transform.position = new Vector2(Screen.width - side_padding, Screen.height / 2 + distance_apart);
+        radars.Add(R2);
+
+        GameObject R3 = GameObject.Find("R3_UI");
+        R3.transform.position = new Vector2(Screen.width - side_padding, Screen.height / 2);
+        radars.Add(R3);
+
+        GameObject R4 = GameObject.Find("R4_UI");
+        R4.transform.position = new Vector2(Screen.width - side_padding, Screen.height / 2 - distance_apart);
+        radars.Add(R4);
+
+        GameObject R5 = GameObject.Find("R5_UI");
+        R5.transform.position = new Vector2(Screen.width - side_padding, Screen.height / 2 - distance_apart * 3);
+        radars.Add(R5);
+
+
+        //Set up the back radar chunk
+        GameObject B1 = GameObject.Find("B1_UI");
+        B1.transform.position = new Vector2(Screen.width / 2 - distance_apart, top__bottom_padding);
+        radars.Add(B1);
+
+        GameObject B2 = GameObject.Find("B2_UI");
+        B2.transform.position = new Vector2(Screen.width / 2, top__bottom_padding);
+        radars.Add(B2);
+
+        GameObject B3 = GameObject.Find("B3_UI");
+        B3.transform.position = new Vector2(Screen.width / 2 + distance_apart, top__bottom_padding);
+        radars.Add(B3);
+
+        //Set up the left radar chunk
+        GameObject L1 = GameObject.Find("L1_UI");
+        L1.transform.position = new Vector2(side_padding * 2, Screen.height / 2 + distance_apart * 3);
+        radars.Add(L1);
+
+        GameObject L2 = GameObject.Find("L2_UI");
+        L2.transform.position = new Vector2(side_padding, Screen.height / 2 + distance_apart);
+        radars.Add(L2);
+
+        GameObject L3 = GameObject.Find("L3_UI");
+        L3.transform.position = new Vector2(side_padding, Screen.height / 2);
+        radars.Add(L3);
+
+        GameObject L4 = GameObject.Find("L4_UI");
+        L4.transform.position = new Vector2(side_padding, Screen.height / 2 - distance_apart);
+        radars.Add(L4);
+
+        GameObject L5 = GameObject.Find("L5_UI");
+        L5.transform.position = new Vector2(side_padding * 2, Screen.height / 2 - distance_apart * 3);
+        radars.Add(L5);
     }
 }

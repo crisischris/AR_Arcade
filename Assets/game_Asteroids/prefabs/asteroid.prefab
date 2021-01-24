@@ -124,6 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de2d4ba312e4c474494ee28c7c9ce327, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isChild: 0
   asteroid_sound:
   - {fileID: 8300000, guid: b7d6d8e12a72b4f66b4af1b48bab2eed, type: 3}
   - {fileID: 8300000, guid: d7a3109a44f0a43268e4924da9a727dc, type: 3}
@@ -135,6 +136,9 @@ MonoBehaviour:
   lifeSpan: 0
   explosion: {fileID: 1325332407741506380, guid: e5d09d0a49ad2488d9745986b74a9b62,
     type: 3}
+  mask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!82 &978274781095966757
 AudioSource:
   m_ObjectHideFlags: 0
