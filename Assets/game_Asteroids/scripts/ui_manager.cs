@@ -22,7 +22,6 @@ public class UI_manager : MonoBehaviour
     public Text finalScoreText;
     public Text liveScoreText;
     public Text lives;
-    public Text debug_asteroids_count;
     public Text AR_session_state;
     public Text gameOver;
     public Button button_playAgain;
@@ -54,7 +53,7 @@ public class UI_manager : MonoBehaviour
 
     public int score = 0;
     private static int x_padding = 325;
-    private static int y_padding_score = 225;
+    private static int y_padding_score = 300;
 
    
 
@@ -77,7 +76,6 @@ public class UI_manager : MonoBehaviour
     {
         liveScoreText.transform.position = new Vector2(x_padding, Screen.height - y_padding_score);
         lives.transform.position = new Vector2(x_padding, Screen.height - y_padding_lives);
-        debug_asteroids_count.transform.position = new Vector2(x_padding, Screen.height - y_padding_asteroids_count);
         AR_session_state.transform.position = new Vector2(Screen.width / 2, 100);
 
 
@@ -125,7 +123,6 @@ public class UI_manager : MonoBehaviour
 
         liveScoreText.text = score.ToString();
         lives.text = string_amount_lives;
-        debug_asteroids_count.text = asteroid_count.ToString();
 
         //reset the radar bar colors if not being raycasted
         foreach(GameObject r in radars)
@@ -167,7 +164,6 @@ public class UI_manager : MonoBehaviour
     private void TurnOffUI()
     {
         lives.gameObject.SetActive(false);
-        debug_asteroids_count.gameObject.SetActive(false);
         liveScoreText.gameObject.SetActive(false);
         AR_session_state.gameObject.SetActive(false);
         Radar_UI.SetActive(false);
@@ -198,7 +194,6 @@ public class UI_manager : MonoBehaviour
     {
         lives.gameObject.SetActive(true);
         liveScoreText.gameObject.SetActive(true);
-        debug_asteroids_count.gameObject.SetActive(true);
         AR_session_state.gameObject.SetActive(true);
     }
 
