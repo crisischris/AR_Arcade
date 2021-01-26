@@ -22,7 +22,7 @@ public class Ball : MonoBehaviour
         // Want it to move either 1 or -1 on z axis
         // Random int between 0 and 1, multiply by 2 it will be either 0 or 2, -1 it will be -1 or 1
         float z = Random.Range(0, 2) * 2f - 1f;
-        // Dont want it to comestraight at player 
+        // Dont want it to come straight at player 
         float x = Random.Range(0, 2) * 2f - 1f * Random.Range(0.2f, 1f);
         velocity = new Vector3(x, 0, z);
     }
