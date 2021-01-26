@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// This class defines the behavior of the asteroid object
@@ -32,6 +33,7 @@ public class Asteroid : MonoBehaviour
     //asteroid public vars
     public float inertia;
     public Vector3 pos;
+    private Vector3 target;
     private int timeAlive;
     public int lifeSpan;
 
@@ -45,6 +47,8 @@ public class Asteroid : MonoBehaviour
     private float userZ;
     private int points;
     private bool dying = false;
+
+    public LayerMask mask;
 
 
 
@@ -131,7 +135,7 @@ public class Asteroid : MonoBehaviour
             //StartSelfDestruct();
 
             //rotate towards the target at instantiation
-            Vector3 target = user.transform.position - transform.position;
+            target = user.transform.position - transform.position;
             Vector3 newDirection = Vector3.RotateTowards(transform.forward, target, Mathf.PI, 0.0f);
             transform.rotation = Quaternion.LookRotation(newDirection);
         }
@@ -148,6 +152,7 @@ public class Asteroid : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+       
 
         //Update the time alive
         timeAlive = (int)(Time.time - timeStart);
@@ -159,6 +164,9 @@ public class Asteroid : MonoBehaviour
         //check to see if we are too old or if the gameover state is true
         if (timeAlive >= lifeSpan || Logic.GlobalGameOverState)
             SelfDestruct(false);
+
+        //radar detection
+        RaycastToUser();
     }
 
   
@@ -186,6 +194,36 @@ public class Asteroid : MonoBehaviour
         Destroy(gameObject);
     }
 
+    //This method detects what radar sensor this asteroid is raycasting to, and modifies the UI accordingly by making
+    //it brighter.
+    private void RaycastToUser()
+    {
+        //Ray ray;
+        RaycastHit hit;
+
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, mask))
+        {
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
+            //Debug.Log(hit.transform.name);
+
+            //TODO
+            //remove this selective test once whole radar working
+            //if (hit.transform.name == null)
+            //{
+            try
+            {
+                GameObject UI_bar = GameObject.Find(hit.transform.name + "_UI");
+                var curColor = UI_bar.GetComponent<Image>().color;
+                UI_bar.GetComponent<Image>().color = new Color(curColor.r, curColor.g, curColor.b, 1);
+                //Debug.Log("COLOR SHOULD BE BRIGHT!");
+            }
+            catch
+            {
+
+            }
+
+        }
+    }
 
     //This function detects a collision of a tag
     //"projectile".  Calls selfDestruct() on collision
