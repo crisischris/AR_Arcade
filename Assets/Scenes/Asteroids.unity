@@ -4966,7 +4966,7 @@ MonoBehaviour:
   hit_sound: {fileID: 8300000, guid: 04e1ec379de4747568e2a4fbb2559497, type: 3}
   sound_source: {fileID: 0}
   laser: {fileID: 6260837628114533747, guid: 5de057c35740440b69e9e17388007968, type: 3}
-  lives: 8
+  lives: 1
   hit_time: 0
   last_hit_time: Infinity
 --- !u!1 &1583907632
@@ -5691,7 +5691,6 @@ MonoBehaviour:
   finalScoreText: {fileID: 902367726}
   liveScoreText: {fileID: 132590861}
   lives: {fileID: 919013061}
-  debug_asteroids_count: {fileID: 1038821136}
   AR_session_state: {fileID: 2005951934}
   gameOver: {fileID: 492139931}
   button_playAgain: {fileID: 43245254}
