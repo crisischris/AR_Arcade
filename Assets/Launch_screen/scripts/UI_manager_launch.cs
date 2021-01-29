@@ -9,9 +9,11 @@ public class UI_manager_launch : MonoBehaviour
     //this object should be shared across all Scenes
     public GameObject DoNotDestroy;
 
-
+    public Text Title;
     public Text highScoreTextAsteroids;
     public Text highScoreTextPong;
+    public Text createdBy;
+
 
     private AudioSource source;
     public AudioClip buttonClick;
@@ -29,34 +31,43 @@ public class UI_manager_launch : MonoBehaviour
         hs_Asteroids = PlayerPrefs.GetInt("Asteroids_high_score", 0);
         hs_Pong = PlayerPrefs.GetInt("Pong_high_score", 0);
 
-        highScoreTextAsteroids.text = "high score: " + hs_Asteroids.ToString();
-        highScoreTextPong.text = "high score: " + hs_Pong.ToString();
 
-        highScoreTextAsteroids.transform.position = new Vector2(Screen.width / 2, 2 * (Screen.height / 10));
-        highScoreTextPong.transform.position = new Vector2(Screen.width / 2, highScoreTextAsteroids.transform.position.y - Screen.height/20);
-
+        //position the UI relative to the screen resolution
+        PositionUI();
+       
     }
     // Update is called once per frame
     void Update()
     {
-        int a = SceneManager.sceneCountInBuildSettings;
-        Debug.Log(a);
-        //int l = s.Length;
-
-        //for (int i = 0; i < l; i++)
-        //    Debug.Log(s[i].name);
-
-        //Debug.Log(SceneManager.GetActiveScene().name);
-        //Debug.Log(SceneManager.GetAllScenes())
+       
     }
 
+
+    //This method aligns the UI relative to the user's phone resolution / aspect ratio
+    private void PositionUI()
+    {
+        highScoreTextAsteroids.text = "high score: " + hs_Asteroids.ToString();
+        highScoreTextPong.text = "high score: " + hs_Pong.ToString();
+
+        Title.text = "AR ARCADE";
+        Title.transform.position = new Vector2(Screen.width / 2, Screen.height - Screen.height / 10);
+
+        createdBy.text = "created by: NewRetro";
+        createdBy.transform.position = new Vector2(Screen.width / 2, Screen.height / 12);
+
+        highScoreTextAsteroids.transform.position = new Vector2(Screen.width / 2, 2 * (Screen.height / 10));
+        highScoreTextPong.transform.position = new Vector2(Screen.width / 2, highScoreTextAsteroids.transform.position.y - Screen.height / 20);
+    }
+
+
+    //This method loads the scene to Asteroids
     public void PlayAsteroids()
     {
         DoNotDestroy.GetComponent<DoNotDestroy>().PlayButtonUI();
-        //DoNotDestroy.GetComponentInChildren<DoNotDestroy>().PlayButtonUI();
         SceneManager.LoadScene("Asteroids");
     }
 
+    //This method loads the scene to Pong
     public void PlayPong()
     {
         DoNotDestroy.GetComponentInChildren<DoNotDestroy>().PlayButtonUI();
