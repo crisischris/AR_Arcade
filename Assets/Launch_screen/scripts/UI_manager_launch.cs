@@ -14,14 +14,21 @@ public class UI_manager_launch : MonoBehaviour
     public Text highScoreTextPong;
     public Text createdBy;
 
+    public Button asteroidsButton;
+    public Button pongButton;
 
     private AudioSource source;
     public AudioClip buttonClick;
-
-
     private int hs_Asteroids = 0, hs_Pong = 0;
 
     // Start is called before the first frame update
+
+    private void Awake()
+    {
+        //lock the orientation
+        Screen.orientation = ScreenOrientation.Portrait;
+    }
+
     void Start()
     {
         //DoNotDestroy = GameObject.Find("DontDestroyOnLoad");
@@ -31,11 +38,14 @@ public class UI_manager_launch : MonoBehaviour
         hs_Asteroids = PlayerPrefs.GetInt("Asteroids_high_score", 0);
         hs_Pong = PlayerPrefs.GetInt("Pong_high_score", 0);
 
+        asteroidsButton.transform.position = new Vector2(Screen.width / 2, Screen.height / 2);
+        pongButton.transform.position = new Vector2(Screen.width / 2, Screen.height / 2 - (Screen.height / 5));
 
         //position the UI relative to the screen resolution
         PositionUI();
-       
     }
+
+
     // Update is called once per frame
     void Update()
     {
@@ -55,8 +65,8 @@ public class UI_manager_launch : MonoBehaviour
         createdBy.text = "created by: NewRetro";
         createdBy.transform.position = new Vector2(Screen.width / 2, Screen.height / 12);
 
-        highScoreTextAsteroids.transform.position = new Vector2(Screen.width / 2, 2 * (Screen.height / 10));
-        highScoreTextPong.transform.position = new Vector2(Screen.width / 2, highScoreTextAsteroids.transform.position.y - Screen.height / 20);
+        highScoreTextAsteroids.transform.position = new Vector2(asteroidsButton.transform.position.x, asteroidsButton.transform.position.y - 175);
+        highScoreTextPong.transform.position = new Vector2(pongButton.transform.position.x, pongButton.transform.position.y - 175);
     }
 
 

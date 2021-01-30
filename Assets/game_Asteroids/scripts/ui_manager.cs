@@ -72,8 +72,11 @@ public class UI_manager : MonoBehaviour
     //TODO
     //remove functions we don't use included start
 
-    void Awake()
+    private void Awake()
     {
+        //lock the orientation
+        Screen.orientation = ScreenOrientation.Portrait;
+
         liveScoreText.transform.position = new Vector2(x_padding, Screen.height - y_padding_score);
         lives.transform.position = new Vector2(x_padding, Screen.height - y_padding_lives);
         AR_session_state.transform.position = new Vector2(Screen.width / 2, 100);
@@ -83,9 +86,7 @@ public class UI_manager : MonoBehaviour
         button_playAgain.gameObject.transform.position = new Vector2(Screen.width / 2, Screen.height / 2 - 200);
         button_exit.gameObject.transform.position = new Vector2(Screen.width / 2, Screen.height / 2 - 400);
 
-
         TurnOffGameOverUI();
-
     }
 
     // Start is called before the first frame update
@@ -235,7 +236,7 @@ public class UI_manager : MonoBehaviour
         int spacing = topPadding / 14;
 
         //overall height minus 7x spaces / 8 bars
-        int sideBarSize = (topPadding - (spacing * 4)) / 5;
+        int sideBarSize = (topPadding - (spacing * 2)) / 3;
 
         //get width between side spaces - 3 spaces in between 4 bars / 4
         int topBottomBarSize = ((sWidth - sidePadding * 2) - spacing * 2) / 3;
@@ -298,47 +299,31 @@ public class UI_manager : MonoBehaviour
 
         //Set up the right radar chunk
         //set middle first to key off of
-        GameObject R3 = GameObject.Find("R3_UI");
-        R3.transform.position = new Vector2(Screen.width - screenValues[2] / 2, screenValues[0] / 2 + screenValues[1] / 2);
-        radars.Add(R3);
-
         GameObject R2 = GameObject.Find("R2_UI");
-        R2.transform.position = new Vector2(Screen.width - screenValues[2] / 2, R3.transform.position.y + screenValues[3] / 2 + screenValues[4]);
+        R2.transform.position = new Vector2(Screen.width - screenValues[2] / 2, screenValues[0] / 2 + screenValues[1] / 2);
         radars.Add(R2);
 
         GameObject R1 = GameObject.Find("R1_UI");
-        R1.transform.position = new Vector2(Screen.width - screenValues[2] / 2, R2.transform.position.y + screenValues[3] / 2 + screenValues[4]);
+        R1.transform.position = new Vector2(Screen.width - screenValues[2] / 2, R2.transform.position.y + screenValues[3] / 3 + screenValues[4]);
         radars.Add(R1);
 
-        GameObject R4 = GameObject.Find("R4_UI");
-        R4.transform.position = new Vector2(Screen.width - screenValues[2] / 2, R3.transform.position.y - screenValues[3] / 2 - screenValues[4]);
-        radars.Add(R4);
-
-        GameObject R5 = GameObject.Find("R5_UI");
-        R5.transform.position = new Vector2(Screen.width - screenValues[2] / 2, R4.transform.position.y - screenValues[3] / 2 - screenValues[4]);
-        radars.Add(R5);
+        GameObject R3 = GameObject.Find("R3_UI");
+        R3.transform.position = new Vector2(Screen.width - screenValues[2] / 2, R2.transform.position.y - screenValues[3] / 3 - screenValues[4]);
+        radars.Add(R3);
 
 
         //Set up the left radar chunk
         //set middle first to key off of
-        GameObject L3 = GameObject.Find("L3_UI");
-        L3.transform.position = new Vector2(screenValues[2] / 2, screenValues[0] / 2 + screenValues[1] / 2);
-        radars.Add(L3);
-
         GameObject L2 = GameObject.Find("L2_UI");
-        L2.transform.position = new Vector2(screenValues[2] / 2, R3.transform.position.y + screenValues[3] / 2 + screenValues[4]);
+        L2.transform.position = new Vector2(screenValues[2] / 2, screenValues[0] / 2 + screenValues[1] / 2);
         radars.Add(L2);
 
         GameObject L1 = GameObject.Find("L1_UI");
-        L1.transform.position = new Vector2(screenValues[2] / 2, R2.transform.position.y + screenValues[3] / 2 + screenValues[4]);
+        L1.transform.position = new Vector2(screenValues[2] / 2, L2.transform.position.y + screenValues[3] / 3 + screenValues[4]);
         radars.Add(L1);
 
-        GameObject L4 = GameObject.Find("L4_UI");
-        L4.transform.position = new Vector2(screenValues[2] / 2, R3.transform.position.y - screenValues[3] / 2 - screenValues[4]);
-        radars.Add(L4);
-
-        GameObject L5 = GameObject.Find("L5_UI");
-        L5.transform.position = new Vector2(screenValues[2] / 2, R4.transform.position.y - screenValues[3] / 2 - screenValues[4]);
-        radars.Add(L5);
+        GameObject L3 = GameObject.Find("L3_UI");
+        L3.transform.position = new Vector2(screenValues[2] / 2, L2.transform.position.y - screenValues[3] / 3 - screenValues[4]);
+        radars.Add(L3);
     }
 }
