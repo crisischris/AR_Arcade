@@ -410,7 +410,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &43245253
 RectTransform:
   m_ObjectHideFlags: 0
@@ -683,7 +683,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &132590860
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2055,12 +2055,12 @@ GameObject:
   - component: {fileID: 492139932}
   - component: {fileID: 492139931}
   m_Layer: 5
-  m_Name: GameOver
+  m_Name: gameOver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &492139930
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3792,7 +3792,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &902367726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3944,7 +3944,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &919013060
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5346,7 +5346,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1371315359
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6149,7 +6149,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1680918703
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6508,15 +6508,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TrackingState: 0
-  highScoreText: {fileID: 2054307576}
-  finalScoreText: {fileID: 902367726}
-  liveScoreText: {fileID: 132590861}
-  lives: {fileID: 919013061}
-  AR_session_state: {fileID: 2005951934}
-  gameOver: {fileID: 492139931}
-  button_playAgain: {fileID: 43245254}
-  button_exit: {fileID: 1371315360}
-  Radar_UI: {fileID: 1680918702}
+  highScoreText: {fileID: 0}
+  finalScoreText: {fileID: 0}
+  liveScoreText: {fileID: 0}
+  lives: {fileID: 0}
+  AR_session_state: {fileID: 0}
+  gameOver: {fileID: 0}
+  button_playAgain: {fileID: 0}
+  button_exit: {fileID: 0}
+  Radar_UI: {fileID: 0}
   radars: []
   score: 0
 --- !u!4 &1799877868
@@ -7065,7 +7065,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2005951933
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7463,12 +7463,12 @@ GameObject:
   - component: {fileID: 2054307577}
   - component: {fileID: 2054307576}
   m_Layer: 5
-  m_Name: high score
+  m_Name: highScore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2054307575
 RectTransform:
   m_ObjectHideFlags: 0

@@ -74,6 +74,8 @@ public class UI_manager : MonoBehaviour
 
     private void Awake()
     {
+        AssignUI();
+
         //lock the orientation
         Screen.orientation = ScreenOrientation.Portrait;
 
@@ -136,7 +138,18 @@ public class UI_manager : MonoBehaviour
     }
 
 
-
+    private void AssignUI()
+    {
+        highScoreText = GameObject.Find("highScore").GetComponent<Text>();
+        finalScoreText = GameObject.Find("finalGameScore").GetComponent<Text>();
+        liveScoreText = GameObject.Find("liveGameScore").GetComponent<Text>();
+        lives = GameObject.Find("lives").GetComponent<Text>();
+        AR_session_state = GameObject.Find("DEBUG - AR session state").GetComponent<Text>();
+        gameOver = GameObject.Find("gameOver").GetComponent<Text>();
+        button_playAgain = GameObject.Find("Button_playAgain").GetComponent<Button>();
+        button_exit = GameObject.Find("Button_exit").GetComponent<Button>();
+        Radar_UI = GameObject.Find("Radar_UI");
+    }
     public void GameOver()
     {
 
