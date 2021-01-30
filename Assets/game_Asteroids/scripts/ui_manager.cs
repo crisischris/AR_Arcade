@@ -26,6 +26,9 @@ public class UI_manager : MonoBehaviour
     public Text gameOver;
     public Button button_playAgain;
     public Button button_exit;
+    public Image transition;
+
+    private float newAlpha;
 
     /// <summary>
     /// The radar UI
@@ -135,6 +138,16 @@ public class UI_manager : MonoBehaviour
             image.color = new Color(curColor.r, curColor.g, curColor.b, idle_alpha);
             //Debug.Log("curr color:" + curColor.ToString());
         }
+
+        //change the alpha of the screen transition object
+        if(newAlpha > 0)
+        {
+            newAlpha -= .025f;
+            if (newAlpha <= 0)
+                transition.gameObject.SetActive(false);
+
+            transition.color = new Color(transition.color.r, transition.color.g, transition.color.b, newAlpha);
+        }
     }
 
 
@@ -149,6 +162,8 @@ public class UI_manager : MonoBehaviour
         button_playAgain = GameObject.Find("Button_playAgain").GetComponent<Button>();
         button_exit = GameObject.Find("Button_exit").GetComponent<Button>();
         Radar_UI = GameObject.Find("Radar_UI");
+        transition = GameObject.Find("transition").GetComponent<Image>();
+        newAlpha = transition.color.a;
     }
     public void GameOver()
     {

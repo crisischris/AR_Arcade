@@ -39,6 +39,9 @@ public class UI_manager_launch : MonoBehaviour
 
     private void Awake()
     {
+        //lock the orientation
+        Screen.orientation = ScreenOrientation.Portrait;
+
         //DoNotDestroy = GameObject.Find("DontDestroyOnLoad");
         DoNotDestroy = GameObject.Find("DoNotDestroy");
         source = GameObject.Find("Manager_Audio").GetComponent<AudioSource>();
