@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Ball : MonoBehaviour
 {
+    public Logic_Manager logicManager;
     // Velocity Vector
     public Vector3 velocity;
     [Range(0,1)]
@@ -46,6 +47,7 @@ public class Ball : MonoBehaviour
             case "Player Score Wall":
             case "Opp Score Wall":
                 ResetBall();
+                logicManager.score(collision.transform.name);
                 return;
             case "Player Paddle":
             case "Opp Paddle":
