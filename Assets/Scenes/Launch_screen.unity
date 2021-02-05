@@ -241,7 +241,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1436336576}
-        m_MethodName: playTutorial
+        m_MethodName: PlayTutorial
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -521,6 +521,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8b1a816a0bd7340ef9d0bd2ae277efb6, type: 3}
   - {fileID: 8300000, guid: 4ce52424e3f734b1dad54521a641a94d, type: 3}
   - {fileID: 8300000, guid: 4e71cf7f6f7a94152927cd2406ba8f3c, type: 3}
+  - {fileID: 8300000, guid: 7502a27fe8fb94b39b7df3377afb5ee8, type: 3}
+  asteroidsTutorial: 0
+  pongTutorial: 0
 --- !u!4 &112575353
 Transform:
   m_ObjectHideFlags: 0

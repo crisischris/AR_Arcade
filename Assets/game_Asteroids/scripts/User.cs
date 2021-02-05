@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿    using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -29,7 +29,7 @@ public class User : MonoBehaviour
     void Start()
     {
         //hook into the audio souce manager
-        sound_source = GameObject.Find("Manager_Audio").GetComponent<AudioSource>();
+        sound_source = GameObject.Find("DoNotDestroy").GetComponent<AudioSource>();
 
         Manager_UI = GameObject.Find("Manager_UI");
 

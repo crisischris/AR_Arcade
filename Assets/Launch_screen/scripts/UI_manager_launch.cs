@@ -113,40 +113,54 @@ public class UI_manager_launch : MonoBehaviour
     //This method loads the scene to Asteroids
     public void MoveToAsteroids()
     {
+        PlayOneSound(buttonClick);
+
         moveToScreen2 = true;
         moveToScreen1 = false;
         isAsteroids = true;
         isPong = false;
+
     }
 
     //This method loads the scene to Pong
     public void MoveToPong()
     {
+        PlayOneSound(buttonClick);
+
         moveToScreen2 = true;
         moveToScreen1 = false;
         isAsteroids = false;
         isPong = true;
     }
 
-    public void playTutorial()
+    public void PlayTutorial()
     {
+        PlayOneSound(buttonClick);
+
         //TODO
         //make tutorial scense
         if (isAsteroids)
         {
+            DoNotDestroy.GetComponent<DoNotDestroy>().asteroidsTutorial = true;
             DoNotDestroy.GetComponent<DoNotDestroy>().PlayButtonUI();
-            SceneManager.LoadScene("Asteroids_Tutorial");
+            SceneManager.LoadScene("Tutorial_Asteroids");
         }
         else
         {
+            DoNotDestroy.GetComponent<DoNotDestroy>().pongTutorial = true;
             DoNotDestroy.GetComponentInChildren<DoNotDestroy>().PlayButtonUI();
-            SceneManager.LoadScene("Pong_Tutorial");
+            SceneManager.LoadScene("Tutorial_Pong");
         }
     }
 
-    public void playGame()
+    public void PlayGame()
     {
-        if(isAsteroids)
+        //reset the tut. vars 
+        DoNotDestroy.GetComponent<DoNotDestroy>().asteroidsTutorial = false;
+        DoNotDestroy.GetComponent<DoNotDestroy>().pongTutorial = false;
+
+        PlayOneSound(buttonClick);
+        if (isAsteroids)
         {
             DoNotDestroy.GetComponent<DoNotDestroy>().PlayButtonUI();
             SceneManager.LoadScene("Asteroids");
@@ -160,8 +174,15 @@ public class UI_manager_launch : MonoBehaviour
 
     public void Back()
     {
+        PlayOneSound(buttonClick);
+
         moveToScreen1 = true;
         moveToScreen2 = false;
+    }
+
+    public void PlayOneSound(AudioClip clip)
+    {
+        source.PlayOneShot(clip);
     }
 
     //public void LerpUILeft()
