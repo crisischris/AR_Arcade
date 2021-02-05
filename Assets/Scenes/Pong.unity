@@ -1611,7 +1611,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5aa1baf81927bae4ea1627f2eb776b27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  logicManager: {fileID: 0}
+  logicManager: {fileID: 2067971274}
   velocity: {x: 0, y: 0, z: 0}
   speed: 0.1
 --- !u!54 &2136569426
