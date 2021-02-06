@@ -8,6 +8,7 @@ public class Logic_Manager : MonoBehaviour
 {
     public Text display_player_score;
     public Text display_ai_score;
+    public Text display_game_over;
 
     public int player_score;
     public int ai_score;
@@ -27,4 +28,9 @@ public class Logic_Manager : MonoBehaviour
         }
     }
 
+    public void gameOver()
+    {
+       
+    }
 }
+
