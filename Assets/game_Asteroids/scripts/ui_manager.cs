@@ -238,7 +238,7 @@ public class UI_manager : MonoBehaviour
 
     public void ExitToHome()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("Launch_screen");
     }
 
 
