@@ -6,6 +6,7 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
     public Logic_Manager logicManager;
+    public Game_Manager gameManager;
     // Velocity Vector
     public Vector3 velocity;
     [Range(0,1)]
@@ -13,7 +14,7 @@ public class Ball : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ResetBall();
+        Invoke("ResetBall", 5f);
     }
 
     void ResetBall()
@@ -48,6 +49,12 @@ public class Ball : MonoBehaviour
             case "Opp Score Wall":
                 ResetBall();
                 logicManager.score(collision.transform.name);
+                Debug.Log("Point Scored");
+                if (logicManager.ai_score >= 11)
+                {
+                    gameManager.EndGame();
+                    return;
+                }
                 return;
             case "Player Paddle":
             case "Opp Paddle":
@@ -55,5 +62,6 @@ public class Ball : MonoBehaviour
                 return;
 
         }
+        
     }
 }
