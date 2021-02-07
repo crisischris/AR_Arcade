@@ -35,7 +35,7 @@ public class DoNotDestroy : MonoBehaviour
         //asteroids bg music
         if ((sceneName == "Asteroids" && source.clip.name != "Asteroids") || (sceneName == "Tutorial_Asteroids" && source.clip.name != "Asteroids"))
             PlayAsteroidsTheme();
-        else if (sceneName == "Pong" && source.clip.name != "Pong")
+        else if (sceneName == "Pong" && source.mute == false)
             PlayPongTheme();
 
         else if(sceneName == "Launch_screen" && source.clip.name != "Launch")
@@ -49,16 +49,21 @@ public class DoNotDestroy : MonoBehaviour
 
     private void PlayAsteroidsTheme()
     {
+
         source.clip = clips[1];
         source.Play();
         source.loop = true;
+        source.mute = false;
+
     }
 
     private void PlayPongTheme()
     {
-        source.clip = clips[1];
-        source.Play();
-        source.loop = true;
+        source.clip = null;
+        source.mute = true;
+        //source.Pause();
+        //source.Play();
+        //source.loop = true;
     }
 
     private void PlayLaunchTheme()
@@ -66,6 +71,7 @@ public class DoNotDestroy : MonoBehaviour
         source.clip = clips[0];
         source.Play();
         source.loop = true;
+        source.mute = false;
     }
 
     public bool isAsteroidsTutorial()

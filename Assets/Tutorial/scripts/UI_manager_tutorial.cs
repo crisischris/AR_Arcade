@@ -222,9 +222,9 @@ public class UI_manager_tutorial : MonoBehaviour
 
 
             //move screens according to their postion using their gameObject empty host
-            screen2_Asteroids.transform.position = new Vector2(Screen.width, transform.position.y);
-            screen3_Asteroids.transform.position = new Vector2(Screen.width * 2, transform.position.y);
-            screen4_Asteroids.transform.position = new Vector2(Screen.width * 3, transform.position.y);
+            screen2_Asteroids.transform.position = new Vector2(Screen.width + Screen.width/2, Screen.height/ 2);
+            screen3_Asteroids.transform.position = new Vector2(Screen.width * 2 + Screen.width / 2, Screen.height / 2);
+            screen4_Asteroids.transform.position = new Vector2(Screen.width * 3 + Screen.width / 2, Screen.height / 2);
 
             screen1_AsteroidsStarting = screen1_Asteroids.transform.position;
             screen2_AsteroidsStarting = screen2_Asteroids.transform.position;
