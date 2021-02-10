@@ -410,6 +410,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ball: {fileID: 2136569424}
+  paddleSpeed: 0.1
 --- !u!1 &431942546
 GameObject:
   m_ObjectHideFlags: 0
@@ -978,7 +979,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 86aa76d03963d4cb3a40aa436ce44e59, type: 3}
     m_FontSize: 84
     m_FontStyle: 0
     m_BestFit: 0
@@ -1149,7 +1150,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 86aa76d03963d4cb3a40aa436ce44e59, type: 3}
     m_FontSize: 84
     m_FontStyle: 0
     m_BestFit: 0
