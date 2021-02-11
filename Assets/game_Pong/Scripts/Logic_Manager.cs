@@ -28,9 +28,5 @@ public class Logic_Manager : MonoBehaviour
         }
     }
 
-    public void gameOver()
-    {
-       
-    }
 }
 
