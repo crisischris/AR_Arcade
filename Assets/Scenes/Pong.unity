@@ -1159,7 +1159,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1101008332
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1702,8 +1702,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: 6265960f70c288849ae80e85eea29a2e, type: 3}
-        m_MethodName: 
+      - m_Target: {fileID: 2067971274}
+        m_MethodName: ExitToHome
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
