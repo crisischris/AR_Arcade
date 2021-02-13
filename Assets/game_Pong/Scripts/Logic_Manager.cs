@@ -32,5 +32,11 @@ public class Logic_Manager : MonoBehaviour
     {
         SceneManager.LoadScene("Launch_screen");
     }
+    public void PlayAgain()
+    {
+        
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.name);
+    }
 }
 
