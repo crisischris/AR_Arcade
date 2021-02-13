@@ -1702,8 +1702,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: ExitToHome
+      - m_Target: {fileID: 11500000, guid: 6265960f70c288849ae80e85eea29a2e, type: 3}
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

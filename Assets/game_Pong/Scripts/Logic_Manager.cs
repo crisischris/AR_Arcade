@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 public class Logic_Manager : MonoBehaviour
@@ -27,6 +28,9 @@ public class Logic_Manager : MonoBehaviour
                 return;
         }
     }
-
+    public void ExitToHome()
+    {
+        SceneManager.LoadScene("Launch_screen");
+    }
 }
 
