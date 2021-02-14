@@ -5244,16 +5244,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TrackingState: 0
-  highScoreText: {fileID: 0}
-  finalScoreText: {fileID: 0}
-  liveScoreText: {fileID: 0}
+  highScoreText: {fileID: 2054307576}
+  finalScoreText: {fileID: 902367726}
+  liveScoreText: {fileID: 132590861}
   lives: {fileID: 919013061}
-  AR_session_state: {fileID: 0}
-  gameOver: {fileID: 0}
-  button_playAgain: {fileID: 0}
-  button_exit: {fileID: 0}
-  transition: {fileID: 0}
-  Radar_UI: {fileID: 0}
+  AR_session_state: {fileID: 2005951934}
+  gameOver: {fileID: 492139931}
+  button_playAgain: {fileID: 43245254}
+  button_exit: {fileID: 1371315360}
+  transition: {fileID: 2075382051}
+  Radar_UI: {fileID: 1680918702}
   radars: []
   score: 0
 --- !u!4 &1799877868

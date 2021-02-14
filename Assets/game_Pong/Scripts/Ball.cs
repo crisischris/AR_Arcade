@@ -53,7 +53,11 @@ public class Ball : MonoBehaviour
                 if (logicManager.ai_score >= 11)
                 {
                     gameManager.EndGame();
-                    return;
+                    //return;
+                }
+                else if (logicManager.player_score >=11)
+                {
+                    gameManager.EndGame();
                 }
                 return;
             case "Player Paddle":
@@ -63,5 +67,9 @@ public class Ball : MonoBehaviour
 
         }
         
+    }
+    void destroyGameObject()
+    {
+        Destroy(gameObject);
     }
 }

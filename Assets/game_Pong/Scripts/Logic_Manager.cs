@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 public class Logic_Manager : MonoBehaviour
@@ -27,10 +28,15 @@ public class Logic_Manager : MonoBehaviour
                 return;
         }
     }
-
-    public void gameOver()
+    public void ExitToHome()
     {
-       
+        SceneManager.LoadScene("Launch_screen");
+    }
+    public void PlayAgain()
+    {
+        
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.name);
     }
 }
 
