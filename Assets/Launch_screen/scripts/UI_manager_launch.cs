@@ -137,20 +137,13 @@ public class UI_manager_launch : MonoBehaviour
     {
         PlayOneSound(buttonClick);
 
-        //TODO
-        //make tutorial scense
         if (isAsteroids)
-        {
             DoNotDestroy.GetComponent<DoNotDestroy>().asteroidsTutorial = true;
-            DoNotDestroy.GetComponent<DoNotDestroy>().PlayButtonUI();
-            SceneManager.LoadScene("Tutorial_Asteroids");
-        }
         else
-        {
             DoNotDestroy.GetComponent<DoNotDestroy>().pongTutorial = true;
-            DoNotDestroy.GetComponentInChildren<DoNotDestroy>().PlayButtonUI();
-            SceneManager.LoadScene("Tutorial_Pong");
-        }
+
+        DoNotDestroy.GetComponent<DoNotDestroy>().PlayButtonUI();
+        SceneManager.LoadScene("Tutorial");
     }
 
     public void PlayGame()
