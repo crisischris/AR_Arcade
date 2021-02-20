@@ -14,6 +14,10 @@ public class Logic_Manager : MonoBehaviour
     public int player_score;
     public int ai_score;
 
+    //handles the screen transition object
+    public Image transition;
+    private float newAlpha;
+
     public void score(string object_hit)
     {
         switch(object_hit)
@@ -37,6 +41,25 @@ public class Logic_Manager : MonoBehaviour
         
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);
+    }
+
+    public void Awake()
+    {
+        newAlpha = transition.color.a;
+        transition = GameObject.Find("transition").GetComponent<Image>();
+    }
+
+    public void Update()
+    {
+        //change the alpha of the screen transition object
+        if (newAlpha > 0)
+        {
+            newAlpha -= .025f;
+            if (newAlpha <= 0)
+                transition.gameObject.SetActive(false);
+
+            transition.color = new Color(transition.color.r, transition.color.g, transition.color.b, newAlpha);
+        }
     }
 }
 

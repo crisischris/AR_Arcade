@@ -6,7 +6,11 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
     public Logic_Manager logicManager;
+    private AudioSource source; 
     public Game_Manager gameManager;
+
+    public AudioClip[] clips;
+
     // Velocity Vector
     public Vector3 velocity;
     [Range(0,1)]
@@ -15,6 +19,7 @@ public class Ball : MonoBehaviour
     void Start()
     {
         Invoke("ResetBall", 5f);
+        source = gameObject.GetComponent<AudioSource>();
     }
 
     void ResetBall()
@@ -40,13 +45,20 @@ public class Ball : MonoBehaviour
     {
         switch(collision.transform.name)
         {
+            
             case "Right Bounding Wall":
             case "Left Bounding Wall":
+                //play the bounce sounnd
+                source.PlayOneShot(clips[0]);
+
                 // When hitting bounding walls ball will go opposite direction it was going
                 velocity.x *= -1f;
                 return;
             case "Player Score Wall":
             case "Opp Score Wall":
+                //play the bounce sounnd
+                source.PlayOneShot(clips[1]);
+
                 ResetBall();
                 logicManager.score(collision.transform.name);
                 Debug.Log("Point Scored");
@@ -62,6 +74,9 @@ public class Ball : MonoBehaviour
                 return;
             case "Player Paddle":
             case "Opp Paddle":
+                //play the bounce sounnd
+                source.PlayOneShot(clips[0]);
+
                 velocity.z *= -1f;
                 return;
 
