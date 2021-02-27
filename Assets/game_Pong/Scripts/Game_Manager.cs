@@ -10,10 +10,13 @@ public class Game_Manager : MonoBehaviour
     //public Ball ball;
     public GameObject endGameContainer;
     public GameObject CountDown;
+    public Logic_Manager logic_Manager;
 
     public void StartGame()
     {
         Debug.Log("StartGameFunctionCalled");
+        CountDown.gameObject.SetActive(true);
+        logic_Manager.BeginGameStartCountDown();
     }
 
     public void EndGame()
