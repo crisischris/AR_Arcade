@@ -11,6 +11,8 @@ public class Logic_Manager : MonoBehaviour
     public Text display_ai_score;
     public Text display_game_over;
 
+    public Button begin;
+
     public int player_score;
     public int ai_score;
 
@@ -60,6 +62,10 @@ public class Logic_Manager : MonoBehaviour
 
             transition.color = new Color(transition.color.r, transition.color.g, transition.color.b, newAlpha);
         }
+    }
+    public void BeginGameButton()
+    {
+        Debug.Log("Start Button Pressed");
     }
 }
 

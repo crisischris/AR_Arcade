@@ -9,6 +9,7 @@ public class Game_Manager : MonoBehaviour
     bool game_ended = false;
     //public Ball ball;
     public GameObject endGameContainer;
+
     public void EndGame()
     {
         if (game_ended == false)

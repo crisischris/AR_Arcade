@@ -32,6 +32,7 @@ public class Ball : MonoBehaviour
         // Dont want it to come straight at player 
         float x = Random.Range(0, 2) * 2f - 1f * Random.Range(0.2f, 1f);
         velocity = new Vector3(x, 0, z);
+        source = gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
