@@ -10,7 +10,7 @@ public class CountDown : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        StartCoroutine(CountdownToStart());
+        //StartCoroutine(CountdownToStart());
     }
     IEnumerator CountdownToStart()
     {

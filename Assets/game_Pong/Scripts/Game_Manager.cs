@@ -9,6 +9,12 @@ public class Game_Manager : MonoBehaviour
     bool game_ended = false;
     //public Ball ball;
     public GameObject endGameContainer;
+    public GameObject CountDown;
+
+    public void StartGame()
+    {
+        Debug.Log("StartGameFunctionCalled");
+    }
 
     public void EndGame()
     {

@@ -20,6 +20,8 @@ public class Logic_Manager : MonoBehaviour
     public Image transition;
     private float newAlpha;
 
+    public Game_Manager game_Manager;
+
     void Start()
     {
         
@@ -67,11 +69,32 @@ public class Logic_Manager : MonoBehaviour
             transition.color = new Color(transition.color.r, transition.color.g, transition.color.b, newAlpha);
         }
     }
+    public int countDownTime;
+    public Text countDownDisplay;
+
+    public void BeginGameStartCountDown()
+    {
+        StartCoroutine(CountdownToStart());
+    }
+    IEnumerator CountdownToStart()
+    {
+        while (countDownTime > 0)
+        {
+            countDownDisplay.text = countDownTime.ToString();
+            yield return new WaitForSeconds(1f);
+            countDownTime--;
+        }
+        countDownDisplay.text = "GO";
+        // Wait 1 second and turn off GO
+        yield return new WaitForSeconds(1f);
+        countDownDisplay.gameObject.SetActive(false);
+    }
     public void BeginGameButton()
     {
         Debug.Log("Start Button Pressed");
         begin.interactable = false;
         begin.gameObject.SetActive(false);
+        game_Manager.StartGame();
     }
 }
 
