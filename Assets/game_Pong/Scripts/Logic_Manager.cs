@@ -20,6 +20,10 @@ public class Logic_Manager : MonoBehaviour
     public Image transition;
     private float newAlpha;
 
+    void Start()
+    {
+        
+    }
     public void score(string object_hit)
     {
         switch(object_hit)
@@ -66,6 +70,8 @@ public class Logic_Manager : MonoBehaviour
     public void BeginGameButton()
     {
         Debug.Log("Start Button Pressed");
+        begin.interactable = false;
+        begin.gameObject.SetActive(false);
     }
 }
 
