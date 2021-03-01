@@ -5,8 +5,15 @@ using UnityEngine;
 public class Arena_Controls : MonoBehaviour
 {
     public Camera playerView;
+    public GameObject gm;
     // Update is called once per frame
     void Update()
+    {
+        if (gm.GetComponent<Game_Manager>().game_started == false)
+            MoveArenaUpDown();
+
+    }
+    void MoveArenaUpDown()
     {
         if (Input.touchCount != 1)
             return;
