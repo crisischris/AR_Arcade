@@ -10,6 +10,7 @@ public class Logic_Manager : MonoBehaviour
     public Text display_player_score;
     public Text display_ai_score;
     public Text display_game_over;
+    //public Text ball_pos_text;
 
     public Button begin;
 
@@ -21,6 +22,7 @@ public class Logic_Manager : MonoBehaviour
     private float newAlpha;
 
     public Game_Manager game_Manager;
+    public Ball ball;
 
     void Start()
     {
@@ -39,6 +41,11 @@ public class Logic_Manager : MonoBehaviour
                 display_player_score.text = "Player:" + player_score;
                 return;
         }
+    }
+
+    public void ballPosY()
+    {
+        //ball_pos_text.text = "Ball Position: " + transform.localPosition.z;
     }
     public void ExitToHome()
     {
@@ -88,6 +95,7 @@ public class Logic_Manager : MonoBehaviour
         // Wait 1 second and turn off GO
         yield return new WaitForSeconds(1f);
         countDownDisplay.gameObject.SetActive(false);
+        ball.ResetBall();
     }
     public void BeginGameButton()
     {

@@ -12,13 +12,16 @@ public class Game_Manager : MonoBehaviour
     public GameObject CountDown;
     public GameObject Ball;
     public Logic_Manager logic_Manager;
+    public Vector3 ballStartPosition;
 
     public void StartGame()
     {
         Debug.Log("StartGameFunctionCalled");
         CountDown.gameObject.SetActive(true);
+        //GameObject.Find("Arena").GetComponent<Arena_Controls>().enabled = false;
         logic_Manager.BeginGameStartCountDown();
-        Ball.gameObject.SetActive(true);
+        ballStartPosition = Ball.transform.position;
+        //Ball.gameObject.SetActive(true);
     }
 
     public void EndGame()
@@ -32,4 +35,5 @@ public class Game_Manager : MonoBehaviour
         }
         
     }
+
 }
