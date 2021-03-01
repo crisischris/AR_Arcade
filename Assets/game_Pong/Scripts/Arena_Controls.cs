@@ -22,8 +22,8 @@ public class Arena_Controls : MonoBehaviour
         var hitInfo = new RaycastHit();
         if (Physics.Raycast(ray, out hitInfo))
         {
-            if (hitInfo.transform.name != "Player Score Wall")
-                return;
+            //if (hitInfo.transform.name != "Player Score Wall")
+               // return;
             var moveArena = transform.position;
             moveArena.y = hitInfo.point.y;
             transform.position = moveArena;
