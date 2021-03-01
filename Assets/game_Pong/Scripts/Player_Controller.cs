@@ -15,8 +15,8 @@ public class Player_Controller : MonoBehaviour
         var hitInfo = new RaycastHit();
         if(Physics.Raycast(ray, out hitInfo))
         {
-            if (hitInfo.transform.name != "Player Score Wall")
-                return;
+            //if (hitInfo.transform.name != "Player Score Wall")
+                //return;
             var movePaddle = transform.position;
             movePaddle.x = hitInfo.point.x;
             transform.position = movePaddle;
