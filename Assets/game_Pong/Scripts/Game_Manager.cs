@@ -7,7 +7,6 @@ public class Game_Manager : MonoBehaviour
 {
     // Start is called before the first frame update
     bool game_ended = false;
-    public bool game_started = false;
     //public Ball ball;
     public GameObject endGameContainer;
     public GameObject CountDown;
@@ -22,7 +21,6 @@ public class Game_Manager : MonoBehaviour
         //GameObject.Find("Arena").GetComponent<Arena_Controls>().enabled = false;
         logic_Manager.BeginGameStartCountDown();
         ballStartPosition = Ball.transform.position;
-        game_started = true;
         //Ball.gameObject.SetActive(true);
     }
 
