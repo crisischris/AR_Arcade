@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Game_Manager : MonoBehaviour
 {
@@ -14,12 +15,14 @@ public class Game_Manager : MonoBehaviour
     public GameObject Ball;
     public Logic_Manager logic_Manager;
     public Vector3 ballStartPosition;
+    public GameObject ArenaSlider;
 
     public void StartGame()
     {
         Debug.Log("StartGameFunctionCalled");
         CountDown.gameObject.SetActive(true);
         //GameObject.Find("Arena").GetComponent<Arena_Controls>().enabled = false;
+        ArenaSlider.gameObject.SetActive(false);
         logic_Manager.BeginGameStartCountDown();
         ballStartPosition = Ball.transform.position;
         game_started = true;
