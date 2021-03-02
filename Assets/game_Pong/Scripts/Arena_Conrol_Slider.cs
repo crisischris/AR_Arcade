@@ -11,6 +11,7 @@ public class Arena_Conrol_Slider : MonoBehaviour
     void Update()
     {
         SliderVal = slider.value;
+        SliderVal *= -1;
         Vector3 moveArena = transform.position;
         moveArena.y = SliderVal;
         transform.position = moveArena;
