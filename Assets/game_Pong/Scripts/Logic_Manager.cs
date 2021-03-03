@@ -23,6 +23,11 @@ public class Logic_Manager : MonoBehaviour
 
     public Game_Manager game_Manager;
     public Ball ball;
+    //For Countdowns
+    public int countDownTime;
+    public Text countDownDisplay;
+    public Text BallResetDisplay;
+    public GameObject BallResetCountDown;
 
     void Start()
     {
@@ -76,9 +81,7 @@ public class Logic_Manager : MonoBehaviour
             transition.color = new Color(transition.color.r, transition.color.g, transition.color.b, newAlpha);
         }
     }
-    public int countDownTime;
-    public Text countDownDisplay;
-
+    
     public void BeginGameStartCountDown()
     {
         StartCoroutine(CountdownToStart());
@@ -95,6 +98,28 @@ public class Logic_Manager : MonoBehaviour
         // Wait 1 second and turn off GO
         yield return new WaitForSeconds(1f);
         countDownDisplay.gameObject.SetActive(false);
+        ball.ResetBall();
+    }
+    public void BallResetCountdown()
+    {
+        //ball.gameObject.SetActive(false);
+        BallResetCountDown.gameObject.SetActive(true);
+        StartCoroutine(CountdownToBallReset());
+        ball.gameObject.SetActive(true);
+    }
+    IEnumerator CountdownToBallReset()
+    {
+        int ResetCountdown = 3;
+        while (ResetCountdown > 0)
+        {
+            BallResetDisplay.text = ResetCountdown.ToString();
+            yield return new WaitForSeconds(1f);
+            ResetCountdown--;
+        }
+        BallResetDisplay.text = "GO";
+        // Wait 1 second and turn off GO
+        yield return new WaitForSeconds(1f);
+        BallResetDisplay.gameObject.SetActive(false);
         ball.ResetBall();
     }
     public void BeginGameButton()

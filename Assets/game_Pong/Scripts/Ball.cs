@@ -11,6 +11,7 @@ public class Ball : MonoBehaviour
     public Transform arena;
     public AudioClip[] clips;
 
+
     // Velocity Vector
     public Vector3 velocity;
     [Range(0,1)]
@@ -36,7 +37,6 @@ public class Ball : MonoBehaviour
         float z = Random.Range(0, 2) * 2f - 1f;
         // Dont want it to come straight at player 
         float x = Random.Range(0, 2) * 2f - 1f * Random.Range(0.2f, 1f);
-        //float y = transform.localPosition.y;
         velocity = new Vector3(x, 0, z);
         source = gameObject.GetComponent<AudioSource>();
     }
@@ -65,8 +65,10 @@ public class Ball : MonoBehaviour
             case "Opp Score Wall":
                 //play the bounce sounnd
                 source.PlayOneShot(clips[1]);
-
                 ResetBall();
+                //Invoke("ResetBall", 3);
+                //gameObject.SetActive(false);
+                //logicManager.BallResetCountdown();
                 logicManager.score(collision.transform.name);
                 Debug.Log("Point Scored");
                 if (logicManager.ai_score >= 11)
