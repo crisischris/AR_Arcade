@@ -36,6 +36,7 @@ public class Game_Manager : MonoBehaviour
             game_ended = true;
             Debug.Log("Game OVER");
             GameObject.Find("Ball").SetActive(false);
+            GameObject.Find("Logic_Manager").GetComponent<Logic_Manager>().WinnerText();
             endGameContainer.SetActive(true);
         }
         

@@ -10,6 +10,7 @@ public class Logic_Manager : MonoBehaviour
     public Text display_player_score;
     public Text display_ai_score;
     public Text display_game_over;
+    public Text winner_text;
     //public Text ball_pos_text;
 
     public Button begin;
@@ -132,6 +133,14 @@ public class Logic_Manager : MonoBehaviour
         begin.interactable = false;
         begin.gameObject.SetActive(false);
         game_Manager.StartGame();
+    }
+
+    public void WinnerText()
+    {
+        if (ai_score == 11)
+            winner_text.text = "AI Knowledge +1";
+        else
+            winner_text.text = "Victory";
     }
 }
 
