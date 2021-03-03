@@ -17,6 +17,9 @@ public class Ball : MonoBehaviour
     [Range(0,1)]
     public float speed = 0.1f;
     public Vector3 Ball_Starting_Position;
+
+    private float z;
+    private float x;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,11 +35,25 @@ public class Ball : MonoBehaviour
     {
         // Reset Position
         getBallStartPosition();
+        if (DidPlayerScore())
+        {
+            z = 1;
+            SetDidPlayerScore();
+        }
+        else if (DidAIScore())
+        {
+            z = -1;
+            SetDidAiScore();
+
+        }
+        else 
+        { 
         // Want it to move either 1 or -1 on z axis
         // Random int between 0 and 1, multiply by 2 it will be either 0 or 2, -1 it will be -1 or 1
-        float z = Random.Range(0, 2) * 2f - 1f;
+        z = Random.Range(0, 2) * 2f - 1f;
+        }
         // Dont want it to come straight at player 
-        float x = Random.Range(0, 2) * 2f - 1f * Random.Range(0.2f, 1f);
+        x = Random.Range(0, 2) * 2f - 1f * Random.Range(0.2f, 1f);
         velocity = new Vector3(x, 0, z);
         source = gameObject.GetComponent<AudioSource>();
     }
@@ -102,5 +119,29 @@ public class Ball : MonoBehaviour
         GameObject gm = GameObject.Find("Game_Manager");
         Game_Manager tempGMVar = gm.GetComponent<Game_Manager>();
         transform.position = tempGMVar.ballStartPosition;
+    }
+    private bool DidPlayerScore()
+    {
+        GameObject lm = GameObject.Find("Logic_Manager");
+        Logic_Manager tempLMVar = lm.GetComponent<Logic_Manager>();
+        return tempLMVar.player_scored;
+    }
+    private bool DidAIScore()
+    {
+        GameObject lm = GameObject.Find("Logic_Manager");
+        Logic_Manager tempLMVar = lm.GetComponent<Logic_Manager>();
+        return tempLMVar.ai_scored;
+    }
+    void SetDidPlayerScore()
+    {
+        GameObject lm = GameObject.Find("Logic_Manager");
+        Logic_Manager tempLMVar = lm.GetComponent<Logic_Manager>();
+        tempLMVar.player_scored = false;
+    }
+    void SetDidAiScore()
+    {
+        GameObject lm = GameObject.Find("Logic_Manager");
+        Logic_Manager tempLMVar = lm.GetComponent<Logic_Manager>();
+        tempLMVar.ai_scored = false;
     }
 }
