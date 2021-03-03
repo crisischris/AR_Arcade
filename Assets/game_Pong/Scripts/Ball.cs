@@ -42,9 +42,10 @@ public class Ball : MonoBehaviour
         }
         else if (DidAIScore())
         {
+            Debug.Log(DidAIScore());
             z = -1;
             SetDidAiScore();
-
+            Debug.Log(DidAIScore());
         }
         else 
         { 

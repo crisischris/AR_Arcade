@@ -42,12 +42,12 @@ public class Logic_Manager : MonoBehaviour
             case "Player Score Wall":
                 ai_score += 1;
                 display_ai_score.text = " AI:" + ai_score;
-                player_scored = true;
+                ai_scored = true;
                 return;
             case "Opp Score Wall":
                 player_score += 1;
                 display_player_score.text = "Player:" + player_score;
-                ai_scored = true;
+                player_scored = true;
                 return;
         }
     }
