@@ -10,6 +10,9 @@ public class Logic_Manager : MonoBehaviour
     public Text display_player_score;
     public Text display_ai_score;
     public Text display_game_over;
+    //public Text ball_pos_text;
+
+    public Button begin;
 
     public int player_score;
     public int ai_score;
@@ -18,6 +21,13 @@ public class Logic_Manager : MonoBehaviour
     public Image transition;
     private float newAlpha;
 
+    public Game_Manager game_Manager;
+    public Ball ball;
+
+    void Start()
+    {
+        
+    }
     public void score(string object_hit)
     {
         switch(object_hit)
@@ -31,6 +41,11 @@ public class Logic_Manager : MonoBehaviour
                 display_player_score.text = "Player:" + player_score;
                 return;
         }
+    }
+
+    public void ballPosY()
+    {
+        //ball_pos_text.text = "Ball Position: " + transform.localPosition.z;
     }
     public void ExitToHome()
     {
@@ -60,6 +75,34 @@ public class Logic_Manager : MonoBehaviour
 
             transition.color = new Color(transition.color.r, transition.color.g, transition.color.b, newAlpha);
         }
+    }
+    public int countDownTime;
+    public Text countDownDisplay;
+
+    public void BeginGameStartCountDown()
+    {
+        StartCoroutine(CountdownToStart());
+    }
+    IEnumerator CountdownToStart()
+    {
+        while (countDownTime > 0)
+        {
+            countDownDisplay.text = countDownTime.ToString();
+            yield return new WaitForSeconds(1f);
+            countDownTime--;
+        }
+        countDownDisplay.text = "GO";
+        // Wait 1 second and turn off GO
+        yield return new WaitForSeconds(1f);
+        countDownDisplay.gameObject.SetActive(false);
+        ball.ResetBall();
+    }
+    public void BeginGameButton()
+    {
+        Debug.Log("Start Button Pressed");
+        begin.interactable = false;
+        begin.gameObject.SetActive(false);
+        game_Manager.StartGame();
     }
 }
 

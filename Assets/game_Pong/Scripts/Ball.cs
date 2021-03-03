@@ -6,32 +6,39 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
     public Logic_Manager logicManager;
-    private AudioSource source; 
+    private AudioSource source;
     public Game_Manager gameManager;
-
+    public Transform arena;
     public AudioClip[] clips;
 
     // Velocity Vector
     public Vector3 velocity;
     [Range(0,1)]
     public float speed = 0.1f;
+    public Vector3 Ball_Starting_Position;
     // Start is called before the first frame update
     void Start()
     {
-        Invoke("ResetBall", 5f);
+        Debug.Log("Ball Start");
+        //Vector3 newPosition = transform.position;
+        //newPosition.y = arena.position.y;
+        //transform.position = newPosition;
+        //Invoke("ResetBall", 5f);
         source = gameObject.GetComponent<AudioSource>();
     }
 
-    void ResetBall()
+    public void ResetBall()
     {
         // Reset Position
-        transform.position = Vector3.zero;
+        getBallStartPosition();
         // Want it to move either 1 or -1 on z axis
         // Random int between 0 and 1, multiply by 2 it will be either 0 or 2, -1 it will be -1 or 1
         float z = Random.Range(0, 2) * 2f - 1f;
         // Dont want it to come straight at player 
         float x = Random.Range(0, 2) * 2f - 1f * Random.Range(0.2f, 1f);
+        //float y = transform.localPosition.y;
         velocity = new Vector3(x, 0, z);
+        source = gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -86,5 +93,12 @@ public class Ball : MonoBehaviour
     void destroyGameObject()
     {
         Destroy(gameObject);
+    }
+
+    void getBallStartPosition()
+    {
+        GameObject gm = GameObject.Find("Game_Manager");
+        Game_Manager tempGMVar = gm.GetComponent<Game_Manager>();
+        transform.position = tempGMVar.ballStartPosition;
     }
 }
