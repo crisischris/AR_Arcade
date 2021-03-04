@@ -138,24 +138,17 @@ public class UI_manager_launch : MonoBehaviour
         PlayOneSound(buttonClick);
 
         if (isAsteroids)
+        { 
             DoNotDestroy.GetComponent<DoNotDestroy>().asteroidsTutorial = true;
-<<<<<<< HEAD
             DoNotDestroy.GetComponent<DoNotDestroy>().PlayButtonUI();
-            SceneManager.LoadScene("Tutorial");
         }
-=======
->>>>>>> Pong_Tutorial
         else
+        {
             DoNotDestroy.GetComponent<DoNotDestroy>().pongTutorial = true;
-<<<<<<< HEAD
             DoNotDestroy.GetComponentInChildren<DoNotDestroy>().PlayButtonUI();
-            SceneManager.LoadScene("Tutorial");
         }
-=======
 
-        DoNotDestroy.GetComponent<DoNotDestroy>().PlayButtonUI();
         SceneManager.LoadScene("Tutorial");
->>>>>>> Pong_Tutorial
     }
 
     public void PlayGame()
@@ -189,14 +182,4 @@ public class UI_manager_launch : MonoBehaviour
     {
         source.PlayOneShot(clip);
     }
-
-    //public void LerpUILeft()
-    //{
-    //    location.transform.position = new Vector3(location.transform.position.x, location.transform.position.y + .1f, location.transform.position.z);
-    //}
-
-    //public void LerpUIRight()
-    //{
-    //    location.transform.position = new Vector3(location.transform.position.x, location.transform.position.y + .1f, location.transform.position.z);
-    //}
 }
