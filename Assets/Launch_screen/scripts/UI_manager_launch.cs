@@ -143,13 +143,13 @@ public class UI_manager_launch : MonoBehaviour
         {
             DoNotDestroy.GetComponent<DoNotDestroy>().asteroidsTutorial = true;
             DoNotDestroy.GetComponent<DoNotDestroy>().PlayButtonUI();
-            SceneManager.LoadScene("Tutorial_Asteroids");
+            SceneManager.LoadScene("Tutorial");
         }
         else
         {
             DoNotDestroy.GetComponent<DoNotDestroy>().pongTutorial = true;
             DoNotDestroy.GetComponentInChildren<DoNotDestroy>().PlayButtonUI();
-            SceneManager.LoadScene("Tutorial_Pong");
+            SceneManager.LoadScene("Tutorial");
         }
     }
 
