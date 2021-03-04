@@ -29,15 +29,15 @@ public class UI_manager_tutorial : MonoBehaviour
     public List<GameObject> radars = new List<GameObject>();
     private float idle_alpha = 70f / 255f;
 
-    public Image tut_ar_main;
+    public Image tut_ar_main_asteroids;
     public Image tut_tap;
     public Image tut_radar_arrow;
     public Image tut_lives_arrow;
 
-    public Text explainer1;
-    public Text explainer2;
-    public Text explainer3;
-    public Text explainer4;
+    public Text explainer1_asteroids;
+    public Text explainer2_asteroids;
+    public Text explainer3_asteroids;
+    public Text explainer4_asteroids;
     public Text score;
     public Text lives;
 
@@ -51,6 +51,15 @@ public class UI_manager_tutorial : MonoBehaviour
 
     public GameObject screen1_Pong;
     public GameObject screen2_Pong;
+
+
+    public Image tut_ar_main_pong;
+    public Image tut_score_arrow;
+
+    public Text explainer1_pong;
+    public Text explainer2_pong;
+    public Text playerScore_pong;
+    public Text aiScore_pong;
 
     Vector2 screen1_PongStarting;
     Vector2 screen2_PongStarting;
@@ -87,7 +96,6 @@ public class UI_manager_tutorial : MonoBehaviour
         //lock the orientation
         Screen.orientation = ScreenOrientation.Portrait;
 
-        //DoNotDestroy = GameObject.Find("DontDestroyOnLoad");
         DoNotDestroy = GameObject.Find("DoNotDestroy");
         source = DoNotDestroy.GetComponent<AudioSource>();
 
@@ -162,6 +170,25 @@ public class UI_manager_tutorial : MonoBehaviour
             }
         }
 
+        else
+        {
+
+            //Very hacky way of moving screen.  could be refactored to simpler
+            //raise the UI up and send the displayUp button down
+            if (moveToPongScreen1)
+            {
+                screen1_Pong.transform.position = Vector2.Lerp(screen1_Pong.transform.position, new Vector2(screen1_PongStarting.x, screen1_PongStarting.y), Time.deltaTime * 10);
+                screen2_Pong.transform.position = Vector2.Lerp(screen2_Pong.transform.position, new Vector2(screen2_PongStarting.x, screen2_PongStarting.y), Time.deltaTime * 10);
+            }
+
+            //move to screen 2
+            else if (moveToPongScreen2)
+            {
+                screen1_Pong.transform.position = Vector2.Lerp(screen1_Pong.transform.position, new Vector2(screen1_PongStarting.x - Screen.width, screen1_PongStarting.y), Time.deltaTime * 10);
+                screen2_Pong.transform.position = Vector2.Lerp(screen2_Pong.transform.position, new Vector2(screen2_PongStarting.x - Screen.width, screen2_PongStarting.y), Time.deltaTime * 10);
+            }
+
+        }
 
 
         //reset the radar bar colors if not being raycasted
@@ -170,7 +197,6 @@ public class UI_manager_tutorial : MonoBehaviour
             var image = r.GetComponent<Image>();
             var curColor = image.color;
             image.color = new Color(curColor.r, curColor.g, curColor.b, idle_alpha);
-            //Debug.Log("curr color:" + curColor.ToString());
         }
 
         //change the alpha of the screen transition object
@@ -185,13 +211,10 @@ public class UI_manager_tutorial : MonoBehaviour
     }
 
 
-
-
-
     //This method aligns the UI relative to the user's phone resolution / aspect ratio
     private void PositionUI()
     {
-        if(isAsteroids)
+        if (isAsteroids)
         {
             screen1_Pong.SetActive(false);
             screen2_Pong.SetActive(false);
@@ -200,21 +223,21 @@ public class UI_manager_tutorial : MonoBehaviour
 
             //position all UI relative to screen
             //Screen1
-            tut_ar_main.transform.position = new Vector2(Screen.width / 2, Screen.height / 1.7f);
-            explainer1.transform.position = new Vector2(Screen.width / 2, Screen.height / 3.25f);
+            tut_ar_main_asteroids.transform.position = new Vector2(Screen.width / 2, Screen.height / 1.7f);
+            explainer1_asteroids.transform.position = new Vector2(Screen.width / 2, Screen.height / 3.25f);
 
             //Screen2
             tut_tap.transform.position = new Vector2(Screen.width / 2, Screen.height / 2);
-            explainer2.transform.position = new Vector2(Screen.width / 2, Screen.height / 2 - 180);
+            explainer2_asteroids.transform.position = new Vector2(Screen.width / 2, Screen.height / 2 - 180);
 
             //Screen3
             SetupRadar();
             tut_radar_arrow.transform.position = new Vector2(Screen.width / 2, Screen.height - Screen.height / 7 - 50);
-            explainer3.transform.position = new Vector2(Screen.width / 2, Screen.height/ 1.6f);
+            explainer3_asteroids.transform.position = new Vector2(Screen.width / 2, Screen.height / 1.6f);
 
             //Screen4
             tut_lives_arrow.transform.position = new Vector2(Screen.width / 2, Screen.height - Screen.height / 4 - 50);
-            explainer4.transform.position = new Vector2(Screen.width / 2, Screen.height / 1.7f);
+            explainer4_asteroids.transform.position = new Vector2(Screen.width / 2, Screen.height / 1.7f);
             score.transform.position = new Vector2(x_padding, Screen.height - y_padding_score);
             lives.transform.position = new Vector2(x_padding, Screen.height - y_padding_lives);
             lives.text = life_symbol;
@@ -222,7 +245,7 @@ public class UI_manager_tutorial : MonoBehaviour
 
 
             //move screens according to their postion using their gameObject empty host
-            screen2_Asteroids.transform.position = new Vector2(Screen.width + Screen.width/2, Screen.height/ 2);
+            screen2_Asteroids.transform.position = new Vector2(Screen.width + Screen.width / 2, Screen.height / 2);
             screen3_Asteroids.transform.position = new Vector2(Screen.width * 2 + Screen.width / 2, Screen.height / 2);
             screen4_Asteroids.transform.position = new Vector2(Screen.width * 3 + Screen.width / 2, Screen.height / 2);
 
@@ -237,8 +260,23 @@ public class UI_manager_tutorial : MonoBehaviour
             screen2_Asteroids.SetActive(false);
             screen3_Asteroids.SetActive(false);
             screen4_Asteroids.SetActive(false);
+
+            //position all UI relative to screen
+            //Screen1
+            tut_ar_main_pong.transform.position = new Vector2(Screen.width / 2, Screen.height / 1.7f);
+            explainer1_pong.transform.position = new Vector2(Screen.width / 2, Screen.height / 3.25f);
+
+            //Screen2
+            tut_score_arrow.transform.position = new Vector2(Screen.width / 2, Screen.height - Screen.height / 3f);
+            explainer2_pong.transform.position = new Vector2(Screen.width / 2, Screen.height / 2.2f);
+            playerScore_pong.transform.position = new Vector2(x_padding, Screen.height - y_padding_score);
+            aiScore_pong.transform.position = new Vector2(Screen.width - x_padding, Screen.height - y_padding_score);
+
+            //move screens according to their postion using their gameObject empty host
+            screen2_Pong.transform.position = new Vector2(Screen.width + Screen.width / 2, Screen.height / 2);
+            screen1_PongStarting = screen1_Pong.transform.position;
+            screen2_PongStarting = screen2_Pong.transform.position;
         }
-       
     }
 
     public void PlayGame()
@@ -371,15 +409,6 @@ public class UI_manager_tutorial : MonoBehaviour
         source.PlayOneShot(clip);
     }
 
-
-    //private void PositionAsteroidsUI()
-    //{
-    //    screen2_Asteroids.transform.position = new Vector2(screen1_Asteroids.transform.position.x + Screen.width, screen2_Asteroids.transform.position.y);
-    //    screen3_Asteroids.transform.position = new Vector2(screen1_Asteroids.transform.position.x + 2 * Screen.width, screen2_Asteroids.transform.position.y);
-    //    screen4_Asteroids.transform.position = new Vector2(screen1_Asteroids.transform.position.x + 3 * Screen.width, screen2_Asteroids.transform.position.y);
-    //}
-
-
     //This function attempts to resize the radar in a device agnostic way.
     //the basic assumption is 16:9 but should extend to others (18:9)
     private int[] CalculateScreenRatios()
@@ -492,12 +521,4 @@ public class UI_manager_tutorial : MonoBehaviour
         L3.transform.position = new Vector2(screenValues[2] / 2, L2.transform.position.y - screenValues[3] / 3 - screenValues[4]);
         radars.Add(L3);
     }
-
-
-
-
-
-
-
-
 }
