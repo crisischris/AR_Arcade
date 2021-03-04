@@ -5,7 +5,7 @@ using UnityEngine;
 public class AI_Controller : MonoBehaviour
 {
     public Transform ball;
-    [SerializeField] float paddleSpeed = 0.01f;
+    [SerializeField] float paddleSpeed = 0.2f;
 
     // Update is called once per frame
     void FixedUpdate()
