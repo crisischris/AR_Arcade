@@ -15,7 +15,7 @@ public class Ball : MonoBehaviour
     // Velocity Vector
     public Vector3 velocity;
     [Range(0,1)]
-    public float speed = 0.1f;
+    public float speed = 0.01f;
     public Vector3 Ball_Starting_Position;
 
     private float z;
@@ -103,13 +103,14 @@ public class Ball : MonoBehaviour
             case "Opp Paddle":
                 //play the bounce sounnd
                 source.PlayOneShot(clips[0]);
-
                 velocity.z *= -1f;
                 return;
 
         }
         
     }
+
+
     void destroyGameObject()
     {
         Destroy(gameObject);

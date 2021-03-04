@@ -674,7 +674,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ball: {fileID: 2136569424}
-  paddleSpeed: 0.25
+  paddleSpeed: 0.2
 --- !u!1 &431942546
 GameObject:
   m_ObjectHideFlags: 0

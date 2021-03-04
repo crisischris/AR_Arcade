@@ -38,6 +38,8 @@ public class Logic_Manager : MonoBehaviour
     }
     public void score(string object_hit)
     {
+        ai_scored = false;
+        player_scored = false;
         switch(object_hit)
         {
             case "Player Score Wall":
