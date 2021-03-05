@@ -16,6 +16,9 @@ public class Game_Manager : MonoBehaviour
     public Logic_Manager logic_Manager;
     public Vector3 ballStartPosition;
     public GameObject ArenaSlider;
+    public int highScore = 0;
+
+   
 
     public void StartGame()
     {
@@ -34,8 +37,14 @@ public class Game_Manager : MonoBehaviour
         if (game_ended == false)
         {
             game_ended = true;
+            //compare score to high score
+            int highScore = PlayerPrefs.GetInt("Pong_high_score", 0);
+            //set the new highscore
+            if (logic_Manager.player_score > highScore)
+                PlayerPrefs.SetInt("Pong_high_score", logic_Manager.player_score);
             Debug.Log("Game OVER");
             GameObject.Find("Ball").SetActive(false);
+            GameObject.Find("Logic_Manager").GetComponent<Logic_Manager>().WinnerText();
             endGameContainer.SetActive(true);
         }
         

@@ -11,11 +11,15 @@ public class Ball : MonoBehaviour
     public Transform arena;
     public AudioClip[] clips;
 
+
     // Velocity Vector
     public Vector3 velocity;
     [Range(0,1)]
-    public float speed = 0.1f;
+    public float speed = 0.01f;
     public Vector3 Ball_Starting_Position;
+
+    private float z;
+    private float x;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,12 +35,26 @@ public class Ball : MonoBehaviour
     {
         // Reset Position
         getBallStartPosition();
+        if (DidPlayerScore())
+        {
+            z = 1;
+            SetDidPlayerScore();
+        }
+        else if (DidAIScore())
+        {
+            Debug.Log(DidAIScore());
+            z = -1;
+            SetDidAiScore();
+            Debug.Log(DidAIScore());
+        }
+        else 
+        { 
         // Want it to move either 1 or -1 on z axis
         // Random int between 0 and 1, multiply by 2 it will be either 0 or 2, -1 it will be -1 or 1
-        float z = Random.Range(0, 2) * 2f - 1f;
+        z = Random.Range(0, 2) * 2f - 1f;
+        }
         // Dont want it to come straight at player 
-        float x = Random.Range(0, 2) * 2f - 1f * Random.Range(0.2f, 1f);
-        //float y = transform.localPosition.y;
+        x = Random.Range(0, 2) * 2f - 1f * Random.Range(0.2f, 1f);
         velocity = new Vector3(x, 0, z);
         source = gameObject.GetComponent<AudioSource>();
     }
@@ -65,8 +83,10 @@ public class Ball : MonoBehaviour
             case "Opp Score Wall":
                 //play the bounce sounnd
                 source.PlayOneShot(clips[1]);
-
                 ResetBall();
+                //Invoke("ResetBall", 3);
+                //gameObject.SetActive(false);
+                //logicManager.BallResetCountdown();
                 logicManager.score(collision.transform.name);
                 Debug.Log("Point Scored");
                 if (logicManager.ai_score >= 11)
@@ -74,22 +94,25 @@ public class Ball : MonoBehaviour
                     gameManager.EndGame();
                     //return;
                 }
+                /* We decided for player to keep playing so they can achieve a high score
                 else if (logicManager.player_score >=11)
                 {
                     gameManager.EndGame();
                 }
+                */
                 return;
             case "Player Paddle":
             case "Opp Paddle":
                 //play the bounce sounnd
                 source.PlayOneShot(clips[0]);
-
                 velocity.z *= -1f;
                 return;
 
         }
         
     }
+
+
     void destroyGameObject()
     {
         Destroy(gameObject);
@@ -100,5 +123,29 @@ public class Ball : MonoBehaviour
         GameObject gm = GameObject.Find("Game_Manager");
         Game_Manager tempGMVar = gm.GetComponent<Game_Manager>();
         transform.position = tempGMVar.ballStartPosition;
+    }
+    private bool DidPlayerScore()
+    {
+        GameObject lm = GameObject.Find("Logic_Manager");
+        Logic_Manager tempLMVar = lm.GetComponent<Logic_Manager>();
+        return tempLMVar.player_scored;
+    }
+    private bool DidAIScore()
+    {
+        GameObject lm = GameObject.Find("Logic_Manager");
+        Logic_Manager tempLMVar = lm.GetComponent<Logic_Manager>();
+        return tempLMVar.ai_scored;
+    }
+    void SetDidPlayerScore()
+    {
+        GameObject lm = GameObject.Find("Logic_Manager");
+        Logic_Manager tempLMVar = lm.GetComponent<Logic_Manager>();
+        tempLMVar.player_scored = false;
+    }
+    void SetDidAiScore()
+    {
+        GameObject lm = GameObject.Find("Logic_Manager");
+        Logic_Manager tempLMVar = lm.GetComponent<Logic_Manager>();
+        tempLMVar.ai_scored = false;
     }
 }

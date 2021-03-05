@@ -5,10 +5,18 @@ using UnityEngine;
 public class AI_Controller : MonoBehaviour
 {
     public Transform ball;
-    [SerializeField] float paddleSpeed = 0.01f;
+    [SerializeField] float paddleSpeed = 0.2f;
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
+    {
+        if (ball.position.z < 0)
+            AIMovement();
+
+        
+    }
+
+    void AIMovement()
     {
         // Vector3 of position of paddle
         Vector3 newPosition = transform.position;
@@ -18,14 +26,12 @@ public class AI_Controller : MonoBehaviour
         // Set new position for paddle
         if (newPosition.x > ball.position.x)
         {
-            newPosition.x -= paddleSpeed;
+            newPosition.x -= paddleSpeed * Time.deltaTime;
         }
-        else if(newPosition.x < ball.position.x)
+        else if (newPosition.x < ball.position.x)
         {
-            newPosition.x += paddleSpeed;
+            newPosition.x += paddleSpeed * Time.deltaTime;
         }
         transform.position = newPosition;
-
-        
     }
 }
