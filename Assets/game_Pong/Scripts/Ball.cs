@@ -94,10 +94,12 @@ public class Ball : MonoBehaviour
                     gameManager.EndGame();
                     //return;
                 }
+                /* We decided for player to keep playing so they can achieve a high score
                 else if (logicManager.player_score >=11)
                 {
                     gameManager.EndGame();
                 }
+                */
                 return;
             case "Player Paddle":
             case "Opp Paddle":
