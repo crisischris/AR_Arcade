@@ -29,18 +29,16 @@ public class DoNotDestroy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("times_loaded");
-        Debug.Log(times_loaded);
-
         var sceneName = SceneManager.GetActiveScene().name;
-        Debug.Log(sceneName);
 
         //asteroids bg music
-        if ((sceneName == "Asteroids" && source.clip.name != "Asteroids") || (sceneName == "Tutorial" && source.clip.name != "Asteroids"))
+        if (sceneName == "Asteroids" && (!source.clip || source.clip.name != "Asteroids")) // || (sceneName == "Tutorial" && source.clip.name != "Asteroids"))
             PlayAsteroidsTheme();
-        else if (sceneName == "Pong" && source.mute == false)
+        else if (sceneName == "Tutorial")
             PlayPongTheme();
-        else if(sceneName == "Launch_screen" && (!source.clip || source.clip.name != "Launch"))
+        else if (sceneName == "Pong")// && source.mute == false)
+            PlayPongTheme();
+        else if (sceneName == "Launch_screen" && (!source.clip || source.clip.name != "Launch"))
             PlayLaunchTheme();
     }
 
@@ -54,13 +52,13 @@ public class DoNotDestroy : MonoBehaviour
         source.clip = clips[1];
         source.Play();
         source.loop = true;
-        source.mute = false;
+       // source.mute = false;
     }
 
     private void PlayPongTheme()
     {
         source.clip = null;
-        source.mute = true;
+       // source.mute = true;
     }
 
     private void PlayLaunchTheme()
@@ -68,7 +66,7 @@ public class DoNotDestroy : MonoBehaviour
         source.clip = clips[0];
         source.Play();
         source.loop = true;
-        source.mute = false;
+      //  source.mute = false;
     }
 
     public bool isAsteroidsTutorial()

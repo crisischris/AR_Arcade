@@ -129,8 +129,7 @@ public class UI_manager_tutorial : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        if(isAsteroids)
+        if (isAsteroids)
         {
 
             //Very hacky way of moving screen.  could be refactored to simpler
@@ -172,7 +171,6 @@ public class UI_manager_tutorial : MonoBehaviour
 
         else
         {
-
             //Very hacky way of moving screen.  could be refactored to simpler
             //raise the UI up and send the displayUp button down
             if (moveToPongScreen1)

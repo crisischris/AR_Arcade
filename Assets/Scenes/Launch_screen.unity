@@ -1356,7 +1356,6 @@ GameObject:
   - component: {fileID: 1669676538}
   - component: {fileID: 1669676537}
   - component: {fileID: 1669676536}
-  - component: {fileID: 1669676539}
   - component: {fileID: 1669676540}
   m_Layer: 5
   m_Name: Asteroids
@@ -1476,26 +1475,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1669676534}
   m_CullTransparentMesh: 0
---- !u!114 &1669676539
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1669676534}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a0df7921961642e2a21b789f9affb31, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  left: 1
-  right: 0
-  lerpSpeed: 1
-  debugStartEndPosText: {fileID: 0}
-  debugStartEndString: 
-  debugTouchCount: {fileID: 0}
-  debugTouchCountString: 0
-  interia: 0
 --- !u!114 &1669676540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1985,7 +1964,6 @@ GameObject:
   - component: {fileID: 1942687037}
   - component: {fileID: 1942687036}
   - component: {fileID: 1942687035}
-  - component: {fileID: 1942687038}
   - component: {fileID: 1942687039}
   m_Layer: 5
   m_Name: Pong
@@ -2105,26 +2083,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1942687033}
   m_CullTransparentMesh: 0
---- !u!114 &1942687038
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1942687033}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a0df7921961642e2a21b789f9affb31, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  left: 0
-  right: 1
-  lerpSpeed: 10
-  debugStartEndPosText: {fileID: 0}
-  debugStartEndString: 
-  debugTouchCount: {fileID: 0}
-  debugTouchCountString: 0
-  interia: 0
 --- !u!114 &1942687039
 MonoBehaviour:
   m_ObjectHideFlags: 0

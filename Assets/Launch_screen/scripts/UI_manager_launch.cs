@@ -13,8 +13,8 @@ public class UI_manager_launch : MonoBehaviour
     public GameObject screen2;
     public Vector2 screen2Starting;
 
-    bool isAsteroids = false;
-    bool isPong = false;
+    public bool isAsteroids = false;
+    public bool isPong = false;
 
     public Text Title;
     public Text highScoreTextAsteroids;
@@ -136,11 +136,13 @@ public class UI_manager_launch : MonoBehaviour
         if (isAsteroids)
         { 
             DoNotDestroy.GetComponent<DoNotDestroy>().asteroidsTutorial = true;
+            DoNotDestroy.GetComponent<DoNotDestroy>().pongTutorial = false;
             DoNotDestroy.GetComponent<DoNotDestroy>().PlayButtonUI();
         }
         else
         {
             DoNotDestroy.GetComponent<DoNotDestroy>().pongTutorial = true;
+            DoNotDestroy.GetComponent<DoNotDestroy>().asteroidsTutorial = false;
             DoNotDestroy.GetComponentInChildren<DoNotDestroy>().PlayButtonUI();
         }
 
