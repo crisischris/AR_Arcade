@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class DoNotDestroy : MonoBehaviour
 {
+    static int times_loaded = 0;
     private AudioSource source;
     public AudioClip[] clips;
     public bool asteroidsTutorial = false;
@@ -13,7 +14,9 @@ public class DoNotDestroy : MonoBehaviour
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        if(times_loaded == 0)
+            DontDestroyOnLoad(gameObject);
+        times_loaded++;
     }
 
     // Start is called before the first frame update
@@ -26,14 +29,18 @@ public class DoNotDestroy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("times_loaded");
+        Debug.Log(times_loaded);
+
         var sceneName = SceneManager.GetActiveScene().name;
+        Debug.Log(sceneName);
+
         //asteroids bg music
-        if ((sceneName == "Asteroids" && source.clip.name != "Asteroids") || (sceneName == "Tutorial_Asteroids" && source.clip.name != "Asteroids"))
+        if ((sceneName == "Asteroids" && source.clip.name != "Asteroids") || (sceneName == "Tutorial" && source.clip.name != "Asteroids"))
             PlayAsteroidsTheme();
         else if (sceneName == "Pong" && source.mute == false)
             PlayPongTheme();
-
-        else if(sceneName == "Launch_screen" && source.clip.name != "Launch")
+        else if(sceneName == "Launch_screen" && (!source.clip || source.clip.name != "Launch"))
             PlayLaunchTheme();
     }
 
@@ -44,7 +51,6 @@ public class DoNotDestroy : MonoBehaviour
 
     private void PlayAsteroidsTheme()
     {
-
         source.clip = clips[1];
         source.Play();
         source.loop = true;
