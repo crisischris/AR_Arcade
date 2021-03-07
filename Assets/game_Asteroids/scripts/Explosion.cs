@@ -11,12 +11,10 @@ public class Explosion : MonoBehaviour
     private int timeAlive;
     private int lifeSpan = 2;
 
-
     // Start is called before the first frame update
     void Start()
     {
         timeStart = Time.time;
-        
     }
 
     // Update is called once per frame
@@ -30,7 +28,6 @@ public class Explosion : MonoBehaviour
 
         if (timeAlive >= lifeSpan)
             selfDestruct();
-
     }
 
     //Call this to clean up

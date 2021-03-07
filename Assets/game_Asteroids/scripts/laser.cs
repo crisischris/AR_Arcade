@@ -7,16 +7,12 @@ public class Laser : MonoBehaviour
     //Audio related to class
     public AudioClip laser_sound;
     public AudioSource sound_source;
-
     private int lifeSpan = 6;
     private float timeStart;
     private int timeAlive;
-
     public float speed = .2f;
 
     // Start is called before the first frame update
-    
-
     void Start()
     {
         //hook into the audio souce manager
@@ -37,13 +33,8 @@ public class Laser : MonoBehaviour
         if (timeAlive >= lifeSpan)
             selfDestruct();
 
-
         transform.position += transform.forward * speed;
-
-        //TODO
-        //collision detection in asteroid
     }
-
 
     //Call this to clean up
     public void selfDestruct()

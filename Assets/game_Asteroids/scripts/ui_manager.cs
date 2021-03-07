@@ -15,8 +15,6 @@ using UnityEngine.XR.ARSubsystems;
 /// </summary>
 public class UI_manager : MonoBehaviour
 {
-    //TODO
-    //Do we really want all of these publics or do we want on start to collect necessary objects?
     public bool TrackingState;
     public Text highScoreText;
     public Text finalScoreText;
@@ -35,45 +33,21 @@ public class UI_manager : MonoBehaviour
     /// </summary>
     public GameObject Radar_UI;
     public List<GameObject> radars = new List<GameObject>();
-
     private int side_padding = 40;
     private int top__bottom_padding  = 40;
-
-    //TODO
-    //some sort of adaptive number here
     //that is responsive to the actual device
     private int distance_apart = 200;
-
     private float idle_alpha = 70f/255f;
-
-
-
-    //////
     private string string_amount_lives;
-
     private GameObject user;
     private int lives_left;
-
     public int score = 0;
     private static int x_padding = 325;
     private static int y_padding_score = 300;
-
-   
-
     private int asteroid_count;
-
-
     private static int y_padding_lives = y_padding_score + 100;
     private static int y_padding_asteroids_count = y_padding_lives + 100;
     private static string life_symbol = "▐ ";
-
-    //private string one_life = life_symbol;
-    //private string two_lives = life_symbol + ' ' + life_symbol;
-    //private string three_lives = life_symbol + ' ' + life_symbol + ' ' + life_symbol;
-
-
-    //TODO
-    //remove functions we don't use included start
 
     private void Awake()
     {
@@ -136,7 +110,6 @@ public class UI_manager : MonoBehaviour
             var image = r.GetComponent<Image>();
             var curColor = image.color;
             image.color = new Color(curColor.r, curColor.g, curColor.b, idle_alpha);
-            //Debug.Log("curr color:" + curColor.ToString());
         }
 
         //change the alpha of the screen transition object
@@ -183,7 +156,6 @@ public class UI_manager : MonoBehaviour
         finalScoreText.transform.position = new Vector2(Screen.width / 2, Screen.height / 2 + 200);
         finalScoreText.alignment = TextAnchor.MiddleCenter;
         finalScoreText.text = "score: " + score.ToString();
-
         highScoreText.transform.position = new Vector2(Screen.width / 2, Screen.height / 2 + 300);
         highScoreText.alignment = TextAnchor.MiddleCenter;
         highScoreText.text = "high score: " + highScore.ToString();
@@ -196,7 +168,6 @@ public class UI_manager : MonoBehaviour
         liveScoreText.gameObject.SetActive(false);
         AR_session_state.gameObject.SetActive(false);
         Radar_UI.SetActive(false);
-
     }
 
     private void TurnOffGameOverUI()
@@ -216,7 +187,6 @@ public class UI_manager : MonoBehaviour
         button_exit.gameObject.SetActive(true);
         highScoreText.gameObject.SetActive(true);
         finalScoreText.gameObject.SetActive(true);
-       
     }
 
     private void TurnOnPlayUI()
@@ -230,7 +200,6 @@ public class UI_manager : MonoBehaviour
     {
         //reset the static count of asteroids
         Asteroid.ResetCount();
-
 
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);
@@ -253,7 +222,6 @@ public class UI_manager : MonoBehaviour
         //ret[4] == side bar y value
         //ret[5] == top / bottom bar x value
         int[] ret = new int[6];
-
         int sHeight = Screen.height;
         int sWidth = Screen.width;
 
@@ -290,9 +258,6 @@ public class UI_manager : MonoBehaviour
         //ret[4] == side bar y value
         //ret[5] == top / bottom bar x value
         int [] screenValues = CalculateScreenRatios();
-
-
-
         Radar_UI.SetActive(true);
 
         //Set up the front radar chunk
@@ -324,7 +289,6 @@ public class UI_manager : MonoBehaviour
         B3.transform.position = new Vector2(Screen.width / 2 + screenValues[3] + screenValues[5], screenValues[1]);
         radars.Add(B3);
 
-
         //Set up the right radar chunk
         //set middle first to key off of
         GameObject R2 = GameObject.Find("R2_UI");
@@ -338,7 +302,6 @@ public class UI_manager : MonoBehaviour
         GameObject R3 = GameObject.Find("R3_UI");
         R3.transform.position = new Vector2(Screen.width - screenValues[2] / 2, R2.transform.position.y - screenValues[3] / 3 - screenValues[4]);
         radars.Add(R3);
-
 
         //Set up the left radar chunk
         //set middle first to key off of

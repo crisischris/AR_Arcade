@@ -12,24 +12,17 @@ public class Controls : MonoBehaviour
     //touch vars
     private Touch touch;
     private GameObject user;
-
-   
     public Text debugText;
     public string debugString;
-
     public Text debugStartEndPosText;
     public string debugStartEndString;
-
     public Text debugTouchCount;
     public int debugTouchCountString = 0;
 
     //for possible inertia boost
     private Vector2 beginTouchPos, endTouchPos;
-
     public float interia = 0;
-
     public bool debug = false;
-
 
 
     // Start is called before the first frame update
@@ -74,8 +67,7 @@ public class Controls : MonoBehaviour
     //move with intertia
     user.transform.position += user.transform.forward * interia;
 
-        //TODO
-        //remove the space key after debug
+        //in editor shoot testing
         if(Input.GetKeyDown(KeyCode.Space))
         {
             user.GetComponent<User>().Shoot();
@@ -110,8 +102,6 @@ public class Controls : MonoBehaviour
                         interia = min / max;
                         debugStartEndString = "beginPos = " + min.ToString() + '\n' + "endPos = " + max.ToString();
                     }
-
-
                         break;
                 }
             }
@@ -121,8 +111,5 @@ public class Controls : MonoBehaviour
             interia -= .01f;
         else
             interia = 0;
-
     }
-
-   
 }

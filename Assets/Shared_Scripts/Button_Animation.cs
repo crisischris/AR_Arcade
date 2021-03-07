@@ -38,7 +38,6 @@ public class Button_Animation : MonoBehaviour
                     reverse = false;
             }
 
-
             if (reverse)
                 Shrink();
             else
@@ -46,16 +45,12 @@ public class Button_Animation : MonoBehaviour
 
             frames = 0;
         }
-       
-
         frames++;
-        
     }
 
     void Shrink()
     {
         t.fontSize--;
-
     }
 
     void Expand()

@@ -13,7 +13,6 @@ public class UI_manager_launch : MonoBehaviour
     public GameObject screen2;
     public Vector2 screen2Starting;
 
-
     bool isAsteroids = false;
     bool isPong = false;
 
@@ -36,7 +35,6 @@ public class UI_manager_launch : MonoBehaviour
     public bool moveToScreen2 = false;
 
     // Start is called before the first frame update
-
     private void Awake()
     {
         //lock the orientation
@@ -75,7 +73,6 @@ public class UI_manager_launch : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         //raise the UI up and send the displayUp button down
         if (moveToScreen1)
         {
@@ -119,7 +116,6 @@ public class UI_manager_launch : MonoBehaviour
         moveToScreen1 = false;
         isAsteroids = true;
         isPong = false;
-
     }
 
     //This method loads the scene to Pong

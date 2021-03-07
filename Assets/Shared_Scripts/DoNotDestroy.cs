@@ -8,12 +8,8 @@ public class DoNotDestroy : MonoBehaviour
 {
     private AudioSource source;
     public AudioClip[] clips;
-
     public bool asteroidsTutorial = false;
     public bool pongTutorial = false;
-
-    
-
 
     private void Awake()
     {
@@ -23,7 +19,6 @@ public class DoNotDestroy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         source = GetComponent<AudioSource>();
         source.loop = true;
     }
@@ -54,16 +49,12 @@ public class DoNotDestroy : MonoBehaviour
         source.Play();
         source.loop = true;
         source.mute = false;
-
     }
 
     private void PlayPongTheme()
     {
         source.clip = null;
         source.mute = true;
-        //source.Pause();
-        //source.Play();
-        //source.loop = true;
     }
 
     private void PlayLaunchTheme()

@@ -14,13 +14,10 @@ public class User : MonoBehaviour
     //Audio related to class
     public AudioClip hit_sound;
     public AudioSource sound_source;
-
     public GameObject laser;
     private GameObject Manager_UI;
-
     public int lives;
     //public bool isTakingHit = false;
-
 
     public float hit_time;
     public float last_hit_time = Mathf.Infinity;
@@ -30,9 +27,7 @@ public class User : MonoBehaviour
     {
         //hook into the audio souce manager
         sound_source = GameObject.Find("DoNotDestroy").GetComponent<AudioSource>();
-
         Manager_UI = GameObject.Find("Manager_UI");
-
 
         //establish time for hit cooldowns
         last_hit_time = Time.time;
@@ -45,7 +40,6 @@ public class User : MonoBehaviour
             GameOver();
     }
 
-
     public void Shoot()
     {
         //check to make sure the gameover state is false
@@ -56,7 +50,6 @@ public class User : MonoBehaviour
             //adjust the shot down
             shot.transform.position = new Vector3(shot.transform.position.x, shot.transform.position.y - .1f, shot.transform.position.z);
             shot.transform.rotation = gameObject.transform.rotation;
-            //shot.transform.eulerAngles = new Vector3(90, transform.rotation.y, transform.rotation.z);
         }
     }
 
